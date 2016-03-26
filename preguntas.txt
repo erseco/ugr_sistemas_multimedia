@@ -1,0 +1,5 @@
+Preguntas sobre las prácticas:
+
+a. Si la práctica exigiese que cada forma mantuviese los atributos originales (color, grosor relleno, etc.) con los que se dibujó, ¿serviría el enfoque actual de tu práctica? En caso negativo, ¿de qué forma habría que reenfocarla?-Si, porque he creado una clase Config donde se va guardando el estado actual del tablero de dibujo, y a la hora de crear cada nueva figura creamos una copia independiente del objeto “config” y cada figura tendrá ahí sus atributosb. Al margen de la cuestión anterior, y centrándonos exclusivamente en los aspectos geométricos, ¿qué opinas sobre el diseño de las clases Shape? ¿son sus métodos adecuados o introducirías mejoras?
+
+- Pienso que deberían de estar mas unificados y tener métodos comunes, actualmente cada uno está hecho de manera totalmente distinta, como si cada clase la hubiera hecho un programador distinto, hay clases que piden un Point2D y otras un Point, otras a las que puedes acceder a los atributos tipo .x y otras a las que hay que llamar al método .getX(), debería haber un poco mas de orden y limpieza, mas si es una librería de clases propia de Java
