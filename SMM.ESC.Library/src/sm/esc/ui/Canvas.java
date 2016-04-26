@@ -17,9 +17,11 @@
 package sm.esc.ui;
 
 import java.awt.AlphaComposite;
+import java.awt.Cursor;
 import sm.esc.graphics.Config;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class Canvas extends javax.swing.JPanel {
 
     private List<sm.esc.graphics.Shape> shapes = new ArrayList();;
     private sm.esc.graphics.Shape selectedShape;
+    protected java.awt.Shape clip = null;
+    
+    private Point2D selectedShapePosition = new Point(0, 0);
     
     /**
      * Creates new form Canvas
@@ -82,9 +87,11 @@ public class Canvas extends javax.swing.JPanel {
         if ( Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND  )
         {
             if (null != this.selectedShape )
-                this.selectedShape.setLocation(evt.getPoint());
-                                
-
+                // Establecemos la posicion sumandole la posicion al hacer click
+                this.selectedShape.setLocation(new Point((int)evt.getPoint().getX() + (int)this.selectedShapePosition.getX(), (int)evt.getPoint().getY() + (int)this.selectedShapePosition.getY()));
+                
+            
+            
         }
         else    
             this.selectedShape.resize(evt.getPoint());
@@ -98,14 +105,26 @@ public class Canvas extends javax.swing.JPanel {
         
         if ( Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND  )
         {
-            // Movemos
-            this.selectedShape = getSelectedShape(evt.getPoint());
 
+            
+            // Obtenemos la forma seleccionada
+            this.selectedShape = getSelectedShape(evt.getPoint());
+            
+            if (this.selectedShape != null)
+            {
+                // Guardamos la posicion de la figura seleccionada restandole donde estamos
+                double x = this.selectedShape.getBounds().getX();
+                double y = this.selectedShape.getBounds().getY();
+                this.selectedShapePosition.setLocation(x - evt.getPoint().x, y - evt.getPoint().y);
+            }           
+            
         } else
         {
             // Agregamos una nueva firgura
             this.selectedShape = new sm.esc.graphics.Shape(Config.GENERALCONFIG.duplicate(), evt.getPoint());
             this.shapes.add(this.selectedShape);
+            
+
       
         }
        
@@ -119,7 +138,11 @@ public class Canvas extends javax.swing.JPanel {
     public void paint(Graphics g) 
     {
         super.paint(g); 
-
+        this.paintShapeVector(g);
+    }
+    
+    private void paintShapeVector(Graphics g)
+    {        
         Graphics2D g2d = (Graphics2D)g;
 
         // Activamos el antialiasing GLOBAL
@@ -131,8 +154,12 @@ public class Canvas extends javax.swing.JPanel {
 
         // Activamos el canal alfa GLOBAL
         if ( Config.GENERALCONFIG.getAlpha() )
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN, 0.5f));
-            
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        
+        if (this.clip != null) {
+            g2d.clip(this.clip);
+        }
+        
         // Pintamos las figuras del vector
         for ( sm.esc.graphics.Shape s : this.shapes ) 
             s.draw(g2d);
@@ -149,7 +176,15 @@ public class Canvas extends javax.swing.JPanel {
         return null;
     
     }
+    
+    public java.awt.Shape getClip() {
+        return this.clip;
+    }
 
+    public void setClip(java.awt.Shape clip) {
+        this.clip = clip;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

@@ -17,27 +17,40 @@
 package practica7;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import sm.esc.graphics.Config;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import sm.esc.ui.ColorChooserButton.ColorChangedListener;
 
 /**
  *
  * @author ernesto
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
+    
+    
+    public int imageHeight = 300;
+    public int imageWidth = 400;
+    private int ndocument = 1; // aqui guardamos el numero de documento para el titulo
     
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public MainWindow() {
         initComponents();
      
+        // Instanciamos aquí el jButtonColorChooser ya que tiene que implementar el metodo colorChanged
         ((sm.esc.ui.ColorChooserButton)jButtonColorChooser).addColorChangedListener(new ColorChangedListener() {
             @Override
             public void colorChanged(Color newColor) {
-                    Config.GENERALCONFIG.setSelectedColor(newColor);
+                Config.GENERALCONFIG.setSelectedColor(newColor);
             }
         
         });
@@ -71,7 +84,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToggleButtonAlpha = new javax.swing.JToggleButton();
         jPanelCenter = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
-        jStatusBar = new javax.swing.JLabel();
+        jPanelStatusBar = new javax.swing.JPanel();
+        jStatusBarCursor = new javax.swing.JLabel();
+        jStatusBarTool = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
@@ -90,6 +105,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuView = new javax.swing.JMenu();
         jCheckBoxMenuItemToolBar = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItemStatusBar = new javax.swing.JCheckBoxMenuItem();
+        jMenuImage = new javax.swing.JMenu();
+        jMenuItemChangeSize = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 500));
@@ -265,20 +282,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 451, Short.MAX_VALUE)
         );
 
         jPanelCenter.add(escritorio, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanelCenter, java.awt.BorderLayout.CENTER);
 
-        jStatusBar.setText("Barra Estado");
-        jStatusBar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(jStatusBar, java.awt.BorderLayout.SOUTH);
+        jPanelStatusBar.setLayout(new java.awt.BorderLayout());
+
+        jStatusBarCursor.setText("(x,y)");
+        jStatusBarCursor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelStatusBar.add(jStatusBarCursor, java.awt.BorderLayout.EAST);
+
+        jStatusBarTool.setText("Barra Estado");
+        jStatusBarTool.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelStatusBar.add(jStatusBarTool, java.awt.BorderLayout.WEST);
+
+        getContentPane().add(jPanelStatusBar, java.awt.BorderLayout.SOUTH);
 
         jMenuFile.setText("Archivo");
 
@@ -377,6 +402,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar.add(jMenuView);
 
+        jMenuImage.setText("Imagen");
+
+        jMenuItemChangeSize.setText("Cambiar tamaño");
+        jMenuItemChangeSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemChangeSizeActionPerformed(evt);
+            }
+        });
+        jMenuImage.add(jMenuItemChangeSize);
+
+        jMenuBar.add(jMenuImage);
+
         setJMenuBar(jMenuBar);
 
         pack();
@@ -385,10 +422,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
         // TODO add your handling code here:
         
-        VentanaInterna vi = new VentanaInterna();
-        //escritorio.add(vi);
+        InternalWindow vi = new InternalWindow();
+        
+        // Truquillo para mostrar las ventanas en cascada, le sumamos 25 pixeles a la nueva
+        InternalWindow selectedWindow = (InternalWindow)this.escritorio.getSelectedFrame();
+        if (selectedWindow != null) 
+        {
+            vi.setLocation(selectedWindow.getX() + 25, selectedWindow.getY() + 25);
+        }
+        
+        
+        
+        vi.setParent(this);
         escritorio.add(vi);
         vi.setVisible(true);
+        vi.setTitle("Nueva imagen " + String.valueOf(this.ndocument));
+        
+        this.ndocument++;
+        
+        BufferedImage img = new BufferedImage(this.imageWidth, this.imageHeight, BufferedImage.TYPE_INT_RGB);
+
+        // le ponemos el color blanco (si no saldría negra)
+        img.createGraphics().setPaint(Color.white);
+        img.createGraphics().fill(new Rectangle2D.Float(0.0f, 0.0f, img.getWidth(), img.getHeight()));
+
+        vi.getCanvas().setImage(img);
+        
+        
         
     }//GEN-LAST:event_jMenuItemNewActionPerformed
 
@@ -396,15 +456,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         JFileChooser dlg = new JFileChooser();
+        
+        dlg.setFileFilter(new FileNameExtensionFilter("Imagen GIF (*.gif)", "gif"));
+        dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));          
+        dlg.setFileFilter(new FileNameExtensionFilter("Imagen JPEG (*.jpg, *.jpeg)", "jpg", "jpeg"));
+        dlg.setFileFilter(new FileNameExtensionFilter("Todos los tipos de imagenes (*.jpg, *.jpeg, *.png, *.gif)", "jpg", "jpeg", "png", "gif"));
+        
+        dlg.setAcceptAllFileFilterUsed(false);
+        
         int resp = dlg.showOpenDialog(this);
         if( resp == JFileChooser.APPROVE_OPTION) {
             File f = dlg.getSelectedFile();
             //Código 
         
-            VentanaInterna vi = new VentanaInterna(f);
-            //escritorio.add(vi);
+            InternalWindow vi = new InternalWindow();
+            vi.setParent(this);
             escritorio.add(vi);
             vi.setVisible(true);
+            
+            BufferedImage img;
+            try 
+            {
+                img = ImageIO.read(f);
+                vi.getCanvas().setImage(img);
+                vi.setTitle(f.getName());
+            } catch (IOException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "Error al abrir la imagen");
+            }
+            
+            
             
             
         }
@@ -414,49 +495,104 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
 
+       
+        InternalWindow vi=(InternalWindow) escritorio.getSelectedFrame();
         
-        JFileChooser dlg = new JFileChooser();
-        int resp = dlg.showSaveDialog(this);
-        if( resp == JFileChooser.APPROVE_OPTION) {
-            File f = dlg.getSelectedFile();
-            //Código 
-        
-            /*
-            VentanaInterna vi = new VentanaInterna(f);
-            //escritorio.add(vi);
-            escritorio.add(vi);
-            vi.setVisible(true);
-            */
+        if (vi != null) 
+        {
+            JFileChooser dlg = new JFileChooser();
             
+            // Establecemos como nombre del fichero el nombre de la ventana
+            dlg.setSelectedFile(new File(vi.getTitle()));
+            
+            dlg.setFileFilter(new FileNameExtensionFilter("Imagen GIF (*.gif)", "gif"));
+            dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));          
+            dlg.setFileFilter(new FileNameExtensionFilter("Imagen JPEG (*.jpg)", "jpg"));
+            
+            dlg.setAcceptAllFileFilterUsed(false);
+           
+            int resp = dlg.showSaveDialog(this);
+            if (resp == JFileChooser.APPROVE_OPTION) 
+            {
+  
+                try 
+                {
+                    BufferedImage img = vi.getCanvas().getImage(true);
+                    if (img != null) 
+                    {
+                        File f = getSelectedFileWithExtension(dlg);
+                        
+                        String filename = f.getName();
+                        String extension = filename.substring(filename.lastIndexOf(".")+1,filename.length());
+
+                        // Comprobamos que le hayamos dado extenión y sea de las soportadas
+                        if (extension.length() == 0 || !( "jpg".equals(extension) || "png".equals(extension) || "gif".equals(extension) ) )
+                        {
+                            // si no le ponemos fijo el formato jpg
+                            extension = "jpg";
+                            f = new File( f.getAbsoluteFile() + ".jpg");
+                        }                        
+
+                        ImageIO.write(img, extension, f);
+                        vi.setTitle(f.getName());
+                    }
+                }catch (Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "Error al guardar la imagen");
+                }
+            }
         }
-        
-        
         
     }//GEN-LAST:event_jMenuSaveActionPerformed
 
+    /**
+    * Obtiene el archivo seleccionado con la extensión del filter
+     * @param c la instancia del filechooser
+     * @return El nombre del fichero
+    */
+    public File getSelectedFileWithExtension(JFileChooser c) 
+    {
+        File file = c.getSelectedFile();
+        if (c.getFileFilter() instanceof FileNameExtensionFilter) 
+        {
+            String[] exts = ((FileNameExtensionFilter)c.getFileFilter()).getExtensions();
+            String nameLower = file.getName().toLowerCase();
+            for (String ext : exts)  // check if it already has a valid extension
+            {
+                if (nameLower.endsWith('.' + ext.toLowerCase())) 
+                {
+                    return file; // if yes, return as-is
+                }
+            }
+            // if not, append the first extension from the selected filter
+            file = new File(file.toString() + '.' + exts[0]);
+        }
+        return file;
+    }
+
     private void jCheckBoxMenuItemStatusBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemStatusBarActionPerformed
-        this.jStatusBar.setVisible(jCheckBoxMenuItemStatusBar.getState());     
+        this.jStatusBarTool.setVisible(jCheckBoxMenuItemStatusBar.getState());     
     }//GEN-LAST:event_jCheckBoxMenuItemStatusBarActionPerformed
 
     private void jToggleButtonPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPointActionPerformed
         
         Config.GENERALCONFIG.setSelectedTool(Config.Tool.POINT);
-        this.jStatusBar.setText("Punto");
+        this.jStatusBarTool.setText("Punto");
     }//GEN-LAST:event_jToggleButtonPointActionPerformed
 
     private void jToggleButtonLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLineActionPerformed
         Config.GENERALCONFIG.setSelectedTool(Config.Tool.LINE);
-        this.jStatusBar.setText("Linea");
+        this.jStatusBarTool.setText("Linea");
     }//GEN-LAST:event_jToggleButtonLineActionPerformed
 
     private void jToggleButtonRectangleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRectangleActionPerformed
         Config.GENERALCONFIG.setSelectedTool(Config.Tool.RECTANGLE);
-        this.jStatusBar.setText("Rectangulo");
+        this.jStatusBarTool.setText("Rectangulo");
     }//GEN-LAST:event_jToggleButtonRectangleActionPerformed
 
     private void jToggleButtonEllipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEllipseActionPerformed
        Config.GENERALCONFIG.setSelectedTool(Config.Tool.ELLIPSE);
-        this.jStatusBar.setText("Elipse");
+        this.jStatusBarTool.setText("Elipse");
     }//GEN-LAST:event_jToggleButtonEllipseActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
@@ -466,11 +602,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jToggleButtonMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonMoveActionPerformed
         Config.GENERALCONFIG.setSelectedTool(Config.Tool.HAND);
-        this.jStatusBar.setText("Mover");
+        this.jStatusBarTool.setText("Mover");
     }//GEN-LAST:event_jToggleButtonMoveActionPerformed
 
     private void jSpinnerStrokeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerStrokeStateChanged
-        Config.GENERALCONFIG.setStroke((int)(jSpinnerStroke.getValue()));
+        Config.GENERALCONFIG.setStroke((Integer)(jSpinnerStroke.getValue()));
     }//GEN-LAST:event_jSpinnerStrokeStateChanged
 
     private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewActionPerformed
@@ -503,6 +639,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_jToggleButtonAlphaActionPerformed
 
+    private void jMenuItemChangeSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChangeSizeActionPerformed
+       
+        JFrame sizeWindow = new SizeWindow(this, this.imageHeight, this.imageWidth);        
+        sizeWindow.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItemChangeSizeActionPerformed
+
+    public void setCursorPosition(String text)
+    {
+        this.jStatusBarCursor.setText(text);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton jButtonColorChooser;
@@ -515,6 +663,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenu jMenuImage;
+    private javax.swing.JMenuItem jMenuItemChangeSize;
     private javax.swing.JMenuItem jMenuItemCopy;
     private javax.swing.JMenuItem jMenuItemCut;
     private javax.swing.JMenuItem jMenuItemExit;
@@ -527,13 +677,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenu jMenuView;
     private javax.swing.JPanel jPanelCenter;
+    private javax.swing.JPanel jPanelStatusBar;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JSpinner jSpinnerStroke;
-    private javax.swing.JLabel jStatusBar;
+    private javax.swing.JLabel jStatusBarCursor;
+    private javax.swing.JLabel jStatusBarTool;
     private javax.swing.JToggleButton jToggleButtonAlpha;
     private javax.swing.JToggleButton jToggleButtonAntialiasing;
     private javax.swing.JToggleButton jToggleButtonEllipse;

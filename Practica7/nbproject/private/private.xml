@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/Practica7.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/VentanaPrincipal.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/VentanaInterna.java</file>
+            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/InternalWindow.java</file>
+            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/SizeWindow.java</file>
+            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/Practica7/src/practica7/MainWindow.java</file>
         </group>
     </open-files>
 </project-private>

@@ -67,10 +67,11 @@ public class Shape implements java.awt.Shape
     
     
     public void setLocation(Point newStartPoint)
-    {  
-        
+    {          
         Point originalLocation = this.getLocation();
-     
+        
+        int newx =   (  newStartPoint.x -  originalLocation.x );
+        int newy =   (newStartPoint.y -  originalLocation.y);
         
         switch (this.config.getSelectedTool())
         {
@@ -88,6 +89,8 @@ public class Shape implements java.awt.Shape
             case RECTANGLE :
                 
                 ((Rectangle)this.internalShape).setLocation(newStartPoint.x , newStartPoint.y);
+                //((Rectangle)this.internalShape).setLocation(newx , newy);
+                //((Rectangle)this.internalShape).setFrame(newx , newy, 100, 100);
                 break;
 
             case ELLIPSE :
@@ -158,7 +161,7 @@ public class Shape implements java.awt.Shape
     
     private boolean isNear(Point2D p)
     {  
-        return ((Line2D)this.internalShape).ptSegDist(p) <= 3.0; 
+        return ((Line2D)this.internalShape).ptSegDist(p) <= 5.0; 
     } 
 
     @Override
