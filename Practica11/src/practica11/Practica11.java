@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package practica10;
+package practica11;
 
 /**
  *
  * @author Ernesto Serrano
  */
-public class Practica10 {
+public class Practica11 {
 
     /**
      * @param args the command line arguments

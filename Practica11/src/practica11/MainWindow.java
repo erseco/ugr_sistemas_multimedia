@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package practica10;
+package practica11;
 
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
@@ -160,7 +160,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jToolBarTools.setRollover(true);
 
-        jButtonNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_new.png"))); // NOI18N
+        jButtonNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_new.png"))); // NOI18N
         jButtonNew.setToolTipText("Nuevo");
         jButtonNew.setFocusable(false);
         jButtonNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -172,7 +172,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBarTools.add(jButtonNew);
 
-        jButtonOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_open.png"))); // NOI18N
+        jButtonOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_open.png"))); // NOI18N
         jButtonOpen.setToolTipText("Abrir");
         jButtonOpen.setFocusable(false);
         jButtonOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -184,7 +184,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBarTools.add(jButtonOpen);
 
-        jButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_save.png"))); // NOI18N
+        jButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_save.png"))); // NOI18N
         jButtonSave.setToolTipText("Guardar");
         jButtonSave.setFocusable(false);
         jButtonSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -198,7 +198,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarTools.add(jSeparator3);
 
         jButtonGroupTools.add(jToggleButtonPoint);
-        jToggleButtonPoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_pencil.png"))); // NOI18N
+        jToggleButtonPoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_pencil.png"))); // NOI18N
         jToggleButtonPoint.setSelected(true);
         jToggleButtonPoint.setToolTipText("Punto");
         jToggleButtonPoint.setFocusable(false);
@@ -212,7 +212,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarTools.add(jToggleButtonPoint);
 
         jButtonGroupTools.add(jToggleButtonLine);
-        jToggleButtonLine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_line.png"))); // NOI18N
+        jToggleButtonLine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_line.png"))); // NOI18N
         jToggleButtonLine.setToolTipText("Linea");
         jToggleButtonLine.setFocusable(false);
         jToggleButtonLine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -225,7 +225,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarTools.add(jToggleButtonLine);
 
         jButtonGroupTools.add(jToggleButtonRectangle);
-        jToggleButtonRectangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_rectangle.png"))); // NOI18N
+        jToggleButtonRectangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_rectangle.png"))); // NOI18N
         jToggleButtonRectangle.setToolTipText("Rectangulo");
         jToggleButtonRectangle.setFocusable(false);
         jToggleButtonRectangle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -238,7 +238,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarTools.add(jToggleButtonRectangle);
 
         jButtonGroupTools.add(jToggleButtonEllipse);
-        jToggleButtonEllipse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_ellipse.png"))); // NOI18N
+        jToggleButtonEllipse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_ellipse.png"))); // NOI18N
         jToggleButtonEllipse.setToolTipText("Elipse");
         jToggleButtonEllipse.setFocusable(false);
         jToggleButtonEllipse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -251,7 +251,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarTools.add(jToggleButtonEllipse);
 
         jButtonGroupTools.add(jToggleButtonMove);
-        jToggleButtonMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_move.png"))); // NOI18N
+        jToggleButtonMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_move.png"))); // NOI18N
         jToggleButtonMove.setToolTipText("Mover");
         jToggleButtonMove.setFocusable(false);
         jToggleButtonMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -285,7 +285,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBarTools.add(jSpinnerStroke);
 
-        jToggleButtonFillColor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_fill.png"))); // NOI18N
+        jToggleButtonFillColor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_fill.png"))); // NOI18N
         jToggleButtonFillColor.setToolTipText("Rellenar");
         jToggleButtonFillColor.setFocusable(false);
         jToggleButtonFillColor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -297,7 +297,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBarTools.add(jToggleButtonFillColor);
 
-        jToggleButtonAntialiasing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_antialiasing.png"))); // NOI18N
+        jToggleButtonAntialiasing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_antialiasing.png"))); // NOI18N
         jToggleButtonAntialiasing.setToolTipText("Suavizado");
         jToggleButtonAntialiasing.setFocusable(false);
         jToggleButtonAntialiasing.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -309,7 +309,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBarTools.add(jToggleButtonAntialiasing);
 
-        jToggleButtonAlpha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_alpha.png"))); // NOI18N
+        jToggleButtonAlpha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_alpha.png"))); // NOI18N
         jToggleButtonAlpha.setToolTipText("Transparencia");
         jToggleButtonAlpha.setFocusable(false);
         jToggleButtonAlpha.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -394,7 +394,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelImageContrast.setMinimumSize(new java.awt.Dimension(96, 70));
         jPanelImageContrast.setLayout(new java.awt.GridLayout(1, 3));
 
-        jButtonConstrast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_contrast.png"))); // NOI18N
+        jButtonConstrast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_contrast.png"))); // NOI18N
         jButtonConstrast.setToolTipText("Constraste");
         jButtonConstrast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,7 +403,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageContrast.add(jButtonConstrast);
 
-        jButtonConstrastBright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_bright.png"))); // NOI18N
+        jButtonConstrastBright.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_bright.png"))); // NOI18N
         jButtonConstrastBright.setToolTipText("Brillante");
         jButtonConstrastBright.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,7 +412,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageContrast.add(jButtonConstrastBright);
 
-        jButtonContrastDark.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_dark.png"))); // NOI18N
+        jButtonContrastDark.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_dark.png"))); // NOI18N
         jButtonContrastDark.setToolTipText("Oscuro");
         jButtonContrastDark.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,7 +426,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelImageOperations.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelImageOperations.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButtonSinuSoidal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_sinusoidal.png"))); // NOI18N
+        jButtonSinuSoidal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_sinusoidal.png"))); // NOI18N
         jButtonSinuSoidal.setToolTipText("Sinusoidal");
         jButtonSinuSoidal.setAlignmentX(10.0F);
         jButtonSinuSoidal.addActionListener(new java.awt.event.ActionListener() {
@@ -436,24 +436,24 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageOperations.add(jButtonSinuSoidal);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_sepia.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_sepia.png"))); // NOI18N
         jButton1.setToolTipText("Sepia");
         jPanelImageOperations.add(jButton1);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_gradient.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_gradient.png"))); // NOI18N
         jButton2.setToolTipText("Gradiente");
         jPanelImageOperations.add(jButton2);
 
         jToolBarImage.add(jPanelImageOperations);
 
         jPanelImageBinary.setBorder(javax.swing.BorderFactory.createTitledBorder("Binarias"));
-        jPanelImageBinary.setLayout(new java.awt.GridLayout());
+        jPanelImageBinary.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButtonBinaryAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_add.png"))); // NOI18N
+        jButtonBinaryAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_add.png"))); // NOI18N
         jButtonBinaryAdd.setToolTipText("suma binaria");
         jPanelImageBinary.add(jButtonBinaryAdd);
 
-        jButtonBinarySubstract.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_substract.png"))); // NOI18N
+        jButtonBinarySubstract.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_substract.png"))); // NOI18N
         jButtonBinarySubstract.setToolTipText("resta binaria");
         jPanelImageBinary.add(jButtonBinarySubstract);
         jPanelImageBinary.add(jSliderBinaryOperations);
@@ -461,7 +461,7 @@ public class MainWindow extends javax.swing.JFrame {
         jToolBarImage.add(jPanelImageBinary);
 
         jPanelUmbralization.setBorder(javax.swing.BorderFactory.createTitledBorder("Umbralizacion"));
-        jPanelUmbralization.setLayout(new java.awt.GridLayout());
+        jPanelUmbralization.setLayout(new java.awt.GridLayout(1, 0));
         jPanelUmbralization.add(jSliderUmbralization);
 
         jToolBarImage.add(jPanelUmbralization);
@@ -494,7 +494,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageRotate.add(jSliderRotate);
 
-        jButtonRotate90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_rotate_90.png"))); // NOI18N
+        jButtonRotate90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_rotate_90.png"))); // NOI18N
         jButtonRotate90.setToolTipText("90 Grados");
         jButtonRotate90.setFocusable(false);
         jButtonRotate90.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -506,7 +506,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageRotate.add(jButtonRotate90);
 
-        jButton180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_rotate_180.png"))); // NOI18N
+        jButton180.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_rotate_180.png"))); // NOI18N
         jButton180.setToolTipText("180 Grados");
         jButton180.setFocusable(false);
         jButton180.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -518,7 +518,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageRotate.add(jButton180);
 
-        jButtonRotate270.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_rotate_270.png"))); // NOI18N
+        jButtonRotate270.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_rotate_270.png"))); // NOI18N
         jButtonRotate270.setToolTipText("270 Grados");
         jButtonRotate270.setFocusable(false);
         jButtonRotate270.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -535,7 +535,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelZoom.setBorder(javax.swing.BorderFactory.createTitledBorder("Escala"));
         jPanelZoom.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButtonZoomMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_zoom_minus.png"))); // NOI18N
+        jButtonZoomMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_zoom_minus.png"))); // NOI18N
         jButtonZoomMinus.setToolTipText("Reducir");
         jButtonZoomMinus.setFocusable(false);
         jButtonZoomMinus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -547,7 +547,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelZoom.add(jButtonZoomMinus);
 
-        jButtonZoomPlus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_zoom_plus.png"))); // NOI18N
+        jButtonZoomPlus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_zoom_plus.png"))); // NOI18N
         jButtonZoomPlus.setToolTipText("Ampliar");
         jButtonZoomPlus.setFocusable(false);
         jButtonZoomPlus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -576,7 +576,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuFile.setText("Archivo");
 
         jMenuItemNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.META_MASK));
-        jMenuItemNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_new.png"))); // NOI18N
+        jMenuItemNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_new.png"))); // NOI18N
         jMenuItemNew.setText("Nuevo");
         jMenuItemNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -585,7 +585,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuItemNew);
 
-        jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_open.png"))); // NOI18N
+        jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_open.png"))); // NOI18N
         jMenuOpen.setText("Abrir");
         jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,7 +595,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuFile.add(jMenuOpen);
 
         jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.META_MASK));
-        jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_save.png"))); // NOI18N
+        jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_save.png"))); // NOI18N
         jMenuSave.setText("Guardar");
         jMenuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -607,7 +607,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuPrint.setText("Imprimir");
 
-        jMenuItemPrinter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_print.png"))); // NOI18N
+        jMenuItemPrinter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_print.png"))); // NOI18N
         jMenuItemPrinter.setText("Impresora");
         jMenuPrint.add(jMenuItemPrinter);
 
@@ -617,7 +617,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuFile.add(jMenuPrint);
         jMenuFile.add(jSeparator1);
 
-        jMenuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_exit.png"))); // NOI18N
+        jMenuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_exit.png"))); // NOI18N
         jMenuItemExit.setText("Salir");
         jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -631,17 +631,17 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuEdit.setText("Editar");
 
         jMenuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.META_MASK));
-        jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_cut.png"))); // NOI18N
+        jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_cut.png"))); // NOI18N
         jMenuItemCut.setText("Cortar");
         jMenuEdit.add(jMenuItemCut);
 
         jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.META_MASK));
-        jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_copy.png"))); // NOI18N
+        jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_copy.png"))); // NOI18N
         jMenuItemCopy.setText("Copiar");
         jMenuEdit.add(jMenuItemCopy);
 
         jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.META_MASK));
-        jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica10/images/icon_paste.png"))); // NOI18N
+        jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_paste.png"))); // NOI18N
         jMenuItemPaste.setText("Pegar");
         jMenuEdit.add(jMenuItemPaste);
 

@@ -17,7 +17,7 @@
                   <KeyStroke key="Meta+N"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_new.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_new.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
@@ -28,7 +28,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuOpen">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_open.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_open.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
@@ -42,7 +42,7 @@
                   <KeyStroke key="Meta+S"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_save.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_save.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
@@ -60,7 +60,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPrinter">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_print.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_print.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Impresora"/>
                   </Properties>
@@ -77,7 +77,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExit">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_exit.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
@@ -98,7 +98,7 @@
                   <KeyStroke key="Meta+X"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_cut.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_cut.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cortar"/>
               </Properties>
@@ -109,7 +109,7 @@
                   <KeyStroke key="Meta+C"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_copy.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_copy.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Copiar"/>
               </Properties>
@@ -120,7 +120,7 @@
                   <KeyStroke key="Meta+V"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/practica10/images/icon_paste.png"/>
+                  <Image iconType="3" name="/practica11/images/icon_paste.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pegar"/>
               </Properties>
@@ -244,7 +244,7 @@
         <Component class="javax.swing.JButton" name="jButtonNew">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_new.png"/>
+              <Image iconType="3" name="/practica11/images/icon_new.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Nuevo"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -258,7 +258,7 @@
         <Component class="javax.swing.JButton" name="jButtonOpen">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_open.png"/>
+              <Image iconType="3" name="/practica11/images/icon_open.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Abrir"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -272,7 +272,7 @@
         <Component class="javax.swing.JButton" name="jButtonSave">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_save.png"/>
+              <Image iconType="3" name="/practica11/images/icon_save.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Guardar"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -291,7 +291,7 @@
               <ComponentRef name="jButtonGroupTools"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_pencil.png"/>
+              <Image iconType="3" name="/practica11/images/icon_pencil.png"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="toolTipText" type="java.lang.String" value="Punto"/>
@@ -309,7 +309,7 @@
               <ComponentRef name="jButtonGroupTools"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_line.png"/>
+              <Image iconType="3" name="/practica11/images/icon_line.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Linea"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -326,7 +326,7 @@
               <ComponentRef name="jButtonGroupTools"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_rectangle.png"/>
+              <Image iconType="3" name="/practica11/images/icon_rectangle.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Rectangulo"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -343,7 +343,7 @@
               <ComponentRef name="jButtonGroupTools"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_ellipse.png"/>
+              <Image iconType="3" name="/practica11/images/icon_ellipse.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Elipse"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -360,7 +360,7 @@
               <ComponentRef name="jButtonGroupTools"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_move.png"/>
+              <Image iconType="3" name="/practica11/images/icon_move.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Mover"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -413,7 +413,7 @@
         <Component class="javax.swing.JToggleButton" name="jToggleButtonFillColor">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_fill.png"/>
+              <Image iconType="3" name="/practica11/images/icon_fill.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Rellenar"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -427,7 +427,7 @@
         <Component class="javax.swing.JToggleButton" name="jToggleButtonAntialiasing">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_antialiasing.png"/>
+              <Image iconType="3" name="/practica11/images/icon_antialiasing.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Suavizado"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -441,7 +441,7 @@
         <Component class="javax.swing.JToggleButton" name="jToggleButtonAlpha">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/practica10/images/icon_alpha.png"/>
+              <Image iconType="3" name="/practica11/images/icon_alpha.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Transparencia"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -594,7 +594,7 @@
                 <Component class="javax.swing.JButton" name="jButtonConstrast">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_contrast.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_contrast.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Constraste"/>
                   </Properties>
@@ -605,7 +605,7 @@
                 <Component class="javax.swing.JButton" name="jButtonConstrastBright">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_bright.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_bright.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Brillante"/>
                   </Properties>
@@ -616,7 +616,7 @@
                 <Component class="javax.swing.JButton" name="jButtonContrastDark">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_dark.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_dark.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Oscuro"/>
                   </Properties>
@@ -643,7 +643,7 @@
                 <Component class="javax.swing.JButton" name="jButtonSinuSoidal">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_sinusoidal.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_sinusoidal.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Sinusoidal"/>
                     <Property name="alignmentX" type="float" value="10.0"/>
@@ -655,7 +655,7 @@
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_sepia.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_sepia.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Sepia"/>
                   </Properties>
@@ -663,7 +663,7 @@
                 <Component class="javax.swing.JButton" name="jButton2">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_gradient.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_gradient.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Gradiente"/>
                   </Properties>
@@ -687,7 +687,7 @@
                 <Component class="javax.swing.JButton" name="jButtonBinaryAdd">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_add.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_add.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="suma binaria"/>
                   </Properties>
@@ -695,7 +695,7 @@
                 <Component class="javax.swing.JButton" name="jButtonBinarySubstract">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_substract.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_substract.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="resta binaria"/>
                   </Properties>
@@ -779,7 +779,7 @@
                 <Component class="javax.swing.JButton" name="jButtonRotate90">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_rotate_90.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_rotate_90.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="90 Grados"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -793,7 +793,7 @@
                 <Component class="javax.swing.JButton" name="jButton180">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_rotate_180.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_rotate_180.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="180 Grados"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -807,7 +807,7 @@
                 <Component class="javax.swing.JButton" name="jButtonRotate270">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_rotate_270.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_rotate_270.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="270 Grados"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -837,7 +837,7 @@
                 <Component class="javax.swing.JButton" name="jButtonZoomMinus">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_zoom_minus.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_zoom_minus.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Reducir"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -851,7 +851,7 @@
                 <Component class="javax.swing.JButton" name="jButtonZoomPlus">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/practica10/images/icon_zoom_plus.png"/>
+                      <Image iconType="3" name="/practica11/images/icon_zoom_plus.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Ampliar"/>
                     <Property name="focusable" type="boolean" value="false"/>
