@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package sm.esc.graphics;
 
 import java.awt.BasicStroke;
@@ -27,8 +26,9 @@ import java.awt.Stroke;
  */
 public class Config implements Cloneable
 {
+
     public static Config GENERALCONFIG = new Config();
-    
+
     private Tool selectedTool = Tool.POINT;
     private Color selectedColor = Color.BLACK;
     private Boolean fillColor = false;
@@ -38,6 +38,7 @@ public class Config implements Cloneable
 
     /**
      * Clones a Config object
+     *
      * @return the cloned Config instance
      */
     @Override
@@ -53,7 +54,7 @@ public class Config implements Cloneable
 
         return newconfig;
     }
-    
+
     /**
      * All the drawings tools
      */
@@ -68,6 +69,7 @@ public class Config implements Cloneable
 
     /**
      * Sets the current selected tool
+     *
      * @param tool The tool to set as selected
      */
     public void setSelectedTool(Tool tool)
@@ -77,6 +79,7 @@ public class Config implements Cloneable
 
     /**
      * Gets the current selected tool
+     *
      * @return the selected tool
      */
     public Tool getSelectedTool()
@@ -113,7 +116,7 @@ public class Config implements Cloneable
     {
         return this.stroke;
     }
-    
+
     public void setAntialiasing(Boolean antialiasing)
     {
         this.antialiasing = antialiasing;
@@ -123,7 +126,7 @@ public class Config implements Cloneable
     {
         return this.antialiasing;
     }
-    
+
     public void setAlpha(Boolean alpha)
     {
         this.alpha = alpha;

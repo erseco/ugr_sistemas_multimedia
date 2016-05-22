@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package sm.esc.graphics;
 
 import java.awt.Graphics2D;
@@ -30,237 +29,232 @@ import static sm.esc.graphics.Config.Tool.LINE;
 import static sm.esc.graphics.Config.Tool.POINT;
 
 /**
- * 
+ *
  * @author Ernesto Serrano
  */
 public class Shape implements java.awt.Shape, Cloneable
-{    
-    private Config config;    
+{
+
+    private Config config;
     private java.awt.Shape internalShape;
 
-    public Shape(Config config, Point startPoint) 
+    public Shape(Config config, Point startPoint)
     {
         this.config = config;
-               
+
         switch (this.config.getSelectedTool())
         {
-            case POINT :
-            case LINE :
-                
+            case POINT:
+            case LINE:
+
                 this.internalShape = new Line2D.Double(startPoint, startPoint);
                 break;
 
-            case RECTANGLE :
-                               
+            case RECTANGLE:
+
                 this.internalShape = new Rectangle(startPoint.x, startPoint.y, 0, 0);
                 break;
 
-            case ELLIPSE :
+            case ELLIPSE:
 
                 this.internalShape = new Ellipse2D.Double(startPoint.x, startPoint.y, 0, 0);
                 break;
 
         }
 
-             
     }
-    
+
     @Override
-    public Shape clone() 
+    public Shape clone()
     {
         Point startPoint = new Point(this.internalShape.getBounds().x, this.internalShape.getBounds().y);
-     
-        Shape shape = new Shape(this.config.clone(), startPoint );
-        
+
+        Shape shape = new Shape(this.config.clone(), startPoint);
+
         return shape;
     }
-    
+
     public void setLocation(Point newStartPoint)
-    {          
+    {
         Point originalLocation = this.getLocation();
-        
-        int newx =   (  newStartPoint.x -  originalLocation.x );
-        int newy =   (newStartPoint.y -  originalLocation.y);
-        
+
+        int newx = (newStartPoint.x - originalLocation.x);
+        int newy = (newStartPoint.y - originalLocation.y);
+
         switch (this.config.getSelectedTool())
         {
-            case POINT :
-            case LINE :
-                
-                Line2D line = ((Line2D)this.internalShape);
+            case POINT:
+            case LINE:
+
+                Line2D line = ((Line2D) this.internalShape);
                 double dx = newStartPoint.getX() - originalLocation.getX();
                 double dy = newStartPoint.getY() - originalLocation.getY();
-                
-                ((Line2D)this.internalShape).setLine(line.getX1()+dx, line.getY1()+dy, line.getX2()+dx, line.getY2()+dy); 
+
+                ((Line2D) this.internalShape).setLine(line.getX1() + dx, line.getY1() + dy, line.getX2() + dx, line.getY2() + dy);
 
                 break;
 
-            case RECTANGLE :
-                
-                ((Rectangle)this.internalShape).setLocation(newStartPoint.x , newStartPoint.y);
+            case RECTANGLE:
+
+                ((Rectangle) this.internalShape).setLocation(newStartPoint.x, newStartPoint.y);
                 //((Rectangle)this.internalShape).setLocation(newx , newy);
                 //((Rectangle)this.internalShape).setFrame(newx , newy, 100, 100);
                 break;
 
-            case ELLIPSE :
+            case ELLIPSE:
 
-                Ellipse2D ellipse = ((Ellipse2D)this.internalShape);
-                ((Ellipse2D)this.internalShape).setFrame(newStartPoint.x , newStartPoint.y, ellipse.getWidth(), ellipse.getHeight());
+                Ellipse2D ellipse = ((Ellipse2D) this.internalShape);
+                ((Ellipse2D) this.internalShape).setFrame(newStartPoint.x, newStartPoint.y, ellipse.getWidth(), ellipse.getHeight());
                 break;
 
         }
-     
+
         //this.resize(startPoint, endPoint);
         //this.startPoint = p;
-        
     }
-    
+
     public void draw(Graphics2D g2d)
     {
         g2d.setPaint(this.config.getSelectedColor());
         g2d.setStroke(this.config.getStroke());
 
-        if (this.config.getFillColor()) 
+        if (this.config.getFillColor())
             g2d.fill(this);
         g2d.draw(this);
-        
+
     }
-    
+
     public void resize(Point endPoint)
     {
-                
+
         // Aqui almacenaremos las coordenadas
         Point startPoint = this.getLocation();
-        
+
         int width = endPoint.x - startPoint.x;
-        int height = endPoint.y - startPoint.y;        
-        
-        
+        int height = endPoint.y - startPoint.y;
+
         if (endPoint.x < startPoint.x)
-            width = -1 * ( startPoint.x - endPoint.x);
-        
-        
+            width = -1 * (startPoint.x - endPoint.x);
+
         if (endPoint.y < startPoint.y)
-            height =  startPoint.y - endPoint.y;
-        
+            height = startPoint.y - endPoint.y;
+
         switch (this.config.getSelectedTool())
         {
-            case POINT :
-               ((Line2D)this.internalShape).setLine(endPoint, endPoint); 
+            case POINT:
+                ((Line2D) this.internalShape).setLine(endPoint, endPoint);
                 break;
 
-            case LINE :
-                
-                ((Line2D)this.internalShape).setLine(startPoint, endPoint); 
+            case LINE:
+
+                ((Line2D) this.internalShape).setLine(startPoint, endPoint);
                 break;
 
-            case RECTANGLE :
-                               
-                ((Rectangle)this.internalShape).setFrame(startPoint.x, startPoint.y, width, height);
+            case RECTANGLE:
+
+                ((Rectangle) this.internalShape).setFrame(startPoint.x, startPoint.y, width, height);
                 break;
 
-            case ELLIPSE :
+            case ELLIPSE:
 
-                ((Ellipse2D)this.internalShape).setFrame(startPoint.x, startPoint.y, width, height);
+                ((Ellipse2D) this.internalShape).setFrame(startPoint.x, startPoint.y, width, height);
                 break;
 
         }
-            
+
     }
-    
+
     private boolean isNear(Point2D p)
-    {  
-        return ((Line2D)this.internalShape).ptSegDist(p) <= 5.0; 
-    } 
+    {
+        return ((Line2D) this.internalShape).ptSegDist(p) <= 5.0;
+    }
 
     @Override
-    public Rectangle getBounds() 
+    public Rectangle getBounds()
     {
         return this.internalShape.getBounds();
     }
 
     @Override
-    public Rectangle2D getBounds2D() 
+    public Rectangle2D getBounds2D()
     {
         return this.internalShape.getBounds2D();
     }
 
     @Override
-    public boolean contains(double x, double y) 
+    public boolean contains(double x, double y)
     {
         return this.internalShape.contains(x, y);
     }
 
     @Override
-    public boolean contains(Point2D p) 
+    public boolean contains(Point2D p)
     {
         // Si es un punto o una línea hacemos uso del isNear()
-        if ( (this.config.getSelectedTool() == POINT || this.config.getSelectedTool() == LINE) && isNear(p))
+        if ((this.config.getSelectedTool() == POINT || this.config.getSelectedTool() == LINE) && isNear(p))
             return true;
-        
+
         return this.internalShape.contains(p);
     }
 
     @Override
-    public boolean intersects(double x, double y, double w, double h) 
+    public boolean intersects(double x, double y, double w, double h)
     {
         return this.internalShape.intersects(x, y, w, h);
     }
 
     @Override
-    public boolean intersects(Rectangle2D r) 
+    public boolean intersects(Rectangle2D r)
     {
         return this.internalShape.intersects(r);
     }
 
     @Override
-    public boolean contains(double x, double y, double w, double h) 
+    public boolean contains(double x, double y, double w, double h)
     {
         return this.internalShape.contains(x, y, w, h);
     }
-    
-   
+
     @Override
-    public boolean contains(Rectangle2D r) 
-    {        
+    public boolean contains(Rectangle2D r)
+    {
         return this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
-    
+
     @Override
-    public PathIterator getPathIterator(AffineTransform at) 
+    public PathIterator getPathIterator(AffineTransform at)
     {
         return this.internalShape.getPathIterator(at);
     }
 
     @Override
-    public PathIterator getPathIterator(AffineTransform at, double flatness) 
+    public PathIterator getPathIterator(AffineTransform at, double flatness)
     {
         return this.internalShape.getPathIterator(at, flatness);
     }
-    
-    
+
     private Point getLocation()
     {
-         switch (this.config.getSelectedTool())
+        switch (this.config.getSelectedTool())
         {
-            case POINT :
-            case LINE :
-                
-                Line2D line = ((Line2D)this.internalShape);
-                return new Point((int)line.getX1(), (int)line.getY1());
+            case POINT:
+            case LINE:
 
-            case RECTANGLE :
+                Line2D line = ((Line2D) this.internalShape);
+                return new Point((int) line.getX1(), (int) line.getY1());
 
-                return  ((Rectangle)this.internalShape).getLocation();
+            case RECTANGLE:
 
-            case ELLIPSE :
-                
-                Ellipse2D ellipse = ((Ellipse2D)this.internalShape);
-                return new Point((int)ellipse.getX(), (int)ellipse.getY());    
+                return ((Rectangle) this.internalShape).getLocation();
+
+            case ELLIPSE:
+
+                Ellipse2D ellipse = ((Ellipse2D) this.internalShape);
+                return new Point((int) ellipse.getX(), (int) ellipse.getY());
         }
-         
+
         return null;
-    
+
     }
-    
+
 }

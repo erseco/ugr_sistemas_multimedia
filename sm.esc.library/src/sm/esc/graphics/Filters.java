@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sm.esc.graphics;
 
-public enum Filters {
-MEDIA,
-BINOMIAL,
-ENFOQUE,
-RELIEVE,
-LAPLACIANA,
+public enum Filters
+{
+    MEDIA,
+    BINOMIAL,
+    ENFOQUE,
+    RELIEVE,
+    LAPLACIANA,
 }

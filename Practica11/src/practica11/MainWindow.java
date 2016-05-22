@@ -37,40 +37,50 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import sm.esc.image.ProductOp;
+import sm.esc.image.SepiaOp;
 import sm.esc.ui.Canvas;
 import sm.esc.ui.CanvasImage;
 import sm.esc.ui.ColorChooserButton.ColorChangedListener;
+import sm.image.BlendOp;
 import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
+import sm.image.SobelOp;
+import sm.image.SubtractionOp;
+import sm.image.ThresholdOp;
 
 /**
  *
  * @author Ernesto Serrano
  */
-public class MainWindow extends javax.swing.JFrame {
-    
+public class MainWindow extends javax.swing.JFrame
+{
+
     private BufferedImage imgTmp;
-    
+
     public int imageHeight = 300;
     public int imageWidth = 400;
     private int ndocument = 1; // aqui guardamos el numero de documento para el titulo
-    
+
     /**
      * Creates new form VentanaPrincipal
      */
-    public MainWindow() {
+    public MainWindow()
+    {
         initComponents();
-     
+
         // Instanciamos aquí el jButtonColorChooser ya que tiene que implementar el metodo colorChanged
-        ((sm.esc.ui.ColorChooserButton)jButtonColorChooser).addColorChangedListener(new ColorChangedListener() {
+        ((sm.esc.ui.ColorChooserButton) jButtonColorChooser).addColorChangedListener(new ColorChangedListener()
+        {
             @Override
-            public void colorChanged(Color newColor) {
+            public void colorChanged(Color newColor)
+            {
                 Config.GENERALCONFIG.setSelectedColor(newColor);
             }
-        
+
         });
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,11 +120,12 @@ public class MainWindow extends javax.swing.JFrame {
         jButtonContrastDark = new javax.swing.JButton();
         jPanelImageOperations = new javax.swing.JPanel();
         jButtonSinuSoidal = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonSepia = new javax.swing.JButton();
+        jButtonGradient = new javax.swing.JButton();
         jPanelImageBinary = new javax.swing.JPanel();
         jButtonBinaryAdd = new javax.swing.JButton();
         jButtonBinarySubstract = new javax.swing.JButton();
+        jButtonBinaryProduct = new javax.swing.JButton();
         jSliderBinaryOperations = new javax.swing.JSlider();
         jPanelUmbralization = new javax.swing.JPanel();
         jSliderUmbralization = new javax.swing.JSlider();
@@ -423,8 +434,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jToolBarImage.add(jPanelImageContrast);
 
-        jPanelImageOperations.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelImageOperations.setLayout(new java.awt.GridLayout(1, 0));
+        jPanelImageOperations.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
+        jPanelImageOperations.setLayout(new java.awt.GridLayout(1, 3));
 
         jButtonSinuSoidal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_sinusoidal.png"))); // NOI18N
         jButtonSinuSoidal.setToolTipText("Sinusoidal");
@@ -436,32 +447,85 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanelImageOperations.add(jButtonSinuSoidal);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_sepia.png"))); // NOI18N
-        jButton1.setToolTipText("Sepia");
-        jPanelImageOperations.add(jButton1);
+        jButtonSepia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_sepia.png"))); // NOI18N
+        jButtonSepia.setToolTipText("Sepia");
+        jButtonSepia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSepiaActionPerformed(evt);
+            }
+        });
+        jPanelImageOperations.add(jButtonSepia);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_gradient.png"))); // NOI18N
-        jButton2.setToolTipText("Gradiente");
-        jPanelImageOperations.add(jButton2);
+        jButtonGradient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_gradient.png"))); // NOI18N
+        jButtonGradient.setToolTipText("Gradiente");
+        jButtonGradient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGradientActionPerformed(evt);
+            }
+        });
+        jPanelImageOperations.add(jButtonGradient);
 
         jToolBarImage.add(jPanelImageOperations);
 
         jPanelImageBinary.setBorder(javax.swing.BorderFactory.createTitledBorder("Binarias"));
-        jPanelImageBinary.setLayout(new java.awt.GridLayout(1, 0));
+        java.awt.GridBagLayout jPanelImageBinaryLayout = new java.awt.GridBagLayout();
+        jPanelImageBinaryLayout.columnWidths = new int[] {10, 10, 10};
+        jPanelImageBinaryLayout.rowHeights = new int[] {1};
+        jPanelImageBinary.setLayout(jPanelImageBinaryLayout);
 
         jButtonBinaryAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_add.png"))); // NOI18N
         jButtonBinaryAdd.setToolTipText("suma binaria");
-        jPanelImageBinary.add(jButtonBinaryAdd);
+        jButtonBinaryAdd.setMaximumSize(new java.awt.Dimension(20, 28));
+        jButtonBinaryAdd.setMinimumSize(new java.awt.Dimension(24, 24));
+        jButtonBinaryAdd.setPreferredSize(new java.awt.Dimension(24, 24));
+        jButtonBinaryAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBinaryAddActionPerformed(evt);
+            }
+        });
+        jPanelImageBinary.add(jButtonBinaryAdd, new java.awt.GridBagConstraints());
 
         jButtonBinarySubstract.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_substract.png"))); // NOI18N
         jButtonBinarySubstract.setToolTipText("resta binaria");
-        jPanelImageBinary.add(jButtonBinarySubstract);
-        jPanelImageBinary.add(jSliderBinaryOperations);
+        jButtonBinarySubstract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBinarySubstractActionPerformed(evt);
+            }
+        });
+        jPanelImageBinary.add(jButtonBinarySubstract, new java.awt.GridBagConstraints());
+
+        jButtonBinaryProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/practica11/images/icon_product.png"))); // NOI18N
+        jButtonBinaryProduct.setToolTipText("multiplicacion binaria");
+        jButtonBinaryProduct.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jButtonBinaryProduct.setMaximumSize(new java.awt.Dimension(20, 28));
+        jButtonBinaryProduct.setMinimumSize(new java.awt.Dimension(24, 24));
+        jButtonBinaryProduct.setPreferredSize(new java.awt.Dimension(24, 24));
+        jButtonBinaryProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBinaryProductActionPerformed(evt);
+            }
+        });
+        jPanelImageBinary.add(jButtonBinaryProduct, new java.awt.GridBagConstraints());
+        jPanelImageBinary.add(jSliderBinaryOperations, new java.awt.GridBagConstraints());
 
         jToolBarImage.add(jPanelImageBinary);
 
         jPanelUmbralization.setBorder(javax.swing.BorderFactory.createTitledBorder("Umbralizacion"));
         jPanelUmbralization.setLayout(new java.awt.GridLayout(1, 0));
+
+        jSliderUmbralization.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderUmbralizationStateChanged(evt);
+            }
+        });
+        jSliderUmbralization.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jSliderUmbralizationFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jSliderUmbralizationFocusLost(evt);
+            }
+        });
         jPanelUmbralization.add(jSliderUmbralization);
 
         jToolBarImage.add(jPanelUmbralization);
@@ -718,25 +782,21 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
         // TODO add your handling code here:
-        
+
         InternalWindow vi = new InternalWindow();
-        
+
         // Truquillo para mostrar las ventanas en cascada, le sumamos 25 pixeles a la nueva
-        InternalWindow selectedWindow = (InternalWindow)this.desktop.getSelectedFrame();
-        if (selectedWindow != null) 
-        {
+        InternalWindow selectedWindow = (InternalWindow) this.desktop.getSelectedFrame();
+        if (selectedWindow != null)
             vi.setLocation(selectedWindow.getX() + 25, selectedWindow.getY() + 25);
-        }
-        
-        
-        
+
         vi.setParent(this);
         desktop.add(vi);
         vi.setVisible(true);
         vi.setTitle("Nueva imagen " + String.valueOf(this.ndocument));
-        
+
         this.ndocument++;
-        
+
         BufferedImage img = new BufferedImage(this.imageWidth, this.imageHeight, BufferedImage.TYPE_INT_ARGB);
 
         // le ponemos el color blanco (si no saldría negra)
@@ -744,123 +804,115 @@ public class MainWindow extends javax.swing.JFrame {
         img.createGraphics().fill(new Rectangle2D.Float(0.0f, 0.0f, img.getWidth(), img.getHeight()));
 
         vi.getCanvas().setImage(img);
-        
-        
-        
+
+
     }//GEN-LAST:event_jMenuItemNewActionPerformed
 
     private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuOpenActionPerformed
         // TODO add your handling code here:
-        
+
         JFileChooser dlg = new JFileChooser();
-        
+
         dlg.setFileFilter(new FileNameExtensionFilter("Imagen GIF (*.gif)", "gif"));
-        dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));          
+        dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));
         dlg.setFileFilter(new FileNameExtensionFilter("Imagen JPEG (*.jpg, *.jpeg)", "jpg", "jpeg"));
         dlg.setFileFilter(new FileNameExtensionFilter("Todos los tipos de imagenes (*.jpg, *.jpeg, *.png, *.gif)", "jpg", "jpeg", "png", "gif"));
-        
+
         dlg.setAcceptAllFileFilterUsed(false);
-        
+
         int resp = dlg.showOpenDialog(this);
-        if( resp == JFileChooser.APPROVE_OPTION) {
+        if (resp == JFileChooser.APPROVE_OPTION)
+        {
             File f = dlg.getSelectedFile();
-            //Código 
-        
+            //Código
+
             InternalWindow vi = new InternalWindow();
             vi.setParent(this);
             desktop.add(vi);
             vi.setVisible(true);
-            
+
             BufferedImage img;
-            try 
+            try
             {
                 img = ImageIO.read(f);
                 vi.getCanvas().setImage(img);
                 vi.setTitle(f.getName());
-            } catch (IOException ex) 
+            } catch (IOException ex)
             {
                 JOptionPane.showMessageDialog(null, "Error al abrir la imagen");
             }
-            
-            
-            
-            
+
         }
-        
-        
+
+
     }//GEN-LAST:event_jMenuOpenActionPerformed
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
 
-       
-        InternalWindow vi=(InternalWindow) desktop.getSelectedFrame();
-        
-        if (vi != null) 
+        InternalWindow vi = (InternalWindow) desktop.getSelectedFrame();
+
+        if (vi != null)
         {
             JFileChooser dlg = new JFileChooser();
-            
+
             // Establecemos como nombre del fichero el nombre de la ventana
             dlg.setSelectedFile(new File(vi.getTitle()));
-            
+
             dlg.setFileFilter(new FileNameExtensionFilter("Imagen GIF (*.gif)", "gif"));
-            dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));          
+            dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));
             dlg.setFileFilter(new FileNameExtensionFilter("Imagen JPEG (*.jpg)", "jpg"));
-            
+
             dlg.setAcceptAllFileFilterUsed(false);
-           
+
             int resp = dlg.showSaveDialog(this);
-            if (resp == JFileChooser.APPROVE_OPTION) 
-            {
-  
-                try 
+            if (resp == JFileChooser.APPROVE_OPTION)
+
+                try
                 {
                     BufferedImage img = vi.getCanvas().getImage(true);
-                    if (img != null) 
+                    if (img != null)
                     {
                         File f = getSelectedFileWithExtension(dlg);
-                        
+
                         String filename = f.getName();
-                        String extension = filename.substring(filename.lastIndexOf(".")+1,filename.length());
+                        String extension = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
 
                         // Comprobamos que le hayamos dado extenión y sea de las soportadas
-                        if (extension.length() == 0 || !( "jpg".equals(extension) || "png".equals(extension) || "gif".equals(extension) ) )
+                        if (extension.length() == 0 || !("jpg".equals(extension) || "png".equals(extension) || "gif".equals(extension)))
                         {
                             // si no le ponemos fijo el formato jpg
                             extension = "jpg";
-                            f = new File( f.getAbsoluteFile() + ".jpg");
-                        }                        
+                            f = new File(f.getAbsoluteFile() + ".jpg");
+                        }
 
                         ImageIO.write(img, extension, f);
                         vi.setTitle(f.getName());
                     }
-                }catch (Exception ex) 
+                } catch (Exception ex)
                 {
                     JOptionPane.showMessageDialog(null, "Error al guardar la imagen");
                 }
-            }
         }
-        
+
     }//GEN-LAST:event_jMenuSaveActionPerformed
 
     /**
-    * Obtiene el archivo seleccionado con la extensión del filter
+     * Obtiene el archivo seleccionado con la extensión del filter
+     *
      * @param c la instancia del filechooser
      * @return El nombre del fichero
-    */
-    public File getSelectedFileWithExtension(JFileChooser c) 
+     */
+    public File getSelectedFileWithExtension(JFileChooser c)
     {
         File file = c.getSelectedFile();
-        if (c.getFileFilter() instanceof FileNameExtensionFilter) 
+        if (c.getFileFilter() instanceof FileNameExtensionFilter)
         {
-            String[] exts = ((FileNameExtensionFilter)c.getFileFilter()).getExtensions();
+            String[] exts = ((FileNameExtensionFilter) c.getFileFilter()).getExtensions();
             String nameLower = file.getName().toLowerCase();
-            for (String ext : exts)  // check if it already has a valid extension
-            {
-                if (nameLower.endsWith('.' + ext.toLowerCase())) 
-                {
+            for (String ext : exts) // check if it already has a valid extension
+            
+                if (nameLower.endsWith('.' + ext.toLowerCase()))
                     return file; // if yes, return as-is
-                }
-            }
             // if not, append the first extension from the selected filter
             file = new File(file.toString() + '.' + exts[0]);
         }
@@ -868,11 +920,11 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void jCheckBoxMenuItemStatusBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemStatusBarActionPerformed
-        this.jStatusBarTool.setVisible(jCheckBoxMenuItemStatusBar.getState());     
+        this.jStatusBarTool.setVisible(jCheckBoxMenuItemStatusBar.getState());
     }//GEN-LAST:event_jCheckBoxMenuItemStatusBarActionPerformed
 
     private void jToggleButtonPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPointActionPerformed
-        
+
         Config.GENERALCONFIG.setSelectedTool(Config.Tool.POINT);
         this.jStatusBarTool.setText("Punto");
     }//GEN-LAST:event_jToggleButtonPointActionPerformed
@@ -888,7 +940,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonRectangleActionPerformed
 
     private void jToggleButtonEllipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonEllipseActionPerformed
-       Config.GENERALCONFIG.setSelectedTool(Config.Tool.ELLIPSE);
+        Config.GENERALCONFIG.setSelectedTool(Config.Tool.ELLIPSE);
         this.jStatusBarTool.setText("Elipse");
     }//GEN-LAST:event_jToggleButtonEllipseActionPerformed
 
@@ -903,7 +955,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonMoveActionPerformed
 
     private void jSpinnerStrokeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerStrokeStateChanged
-        Config.GENERALCONFIG.setStroke((Integer)(jSpinnerStroke.getValue()));
+        Config.GENERALCONFIG.setStroke((Integer) (jSpinnerStroke.getValue()));
     }//GEN-LAST:event_jSpinnerStrokeStateChanged
 
     private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewActionPerformed
@@ -937,54 +989,55 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonAlphaActionPerformed
 
     private void jMenuItemChangeSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemChangeSizeActionPerformed
-       
-        JFrame sizeWindow = new SizeWindow(this, this.imageHeight, this.imageWidth);        
+
+        JFrame sizeWindow = new SizeWindow(this, this.imageHeight, this.imageWidth);
         sizeWindow.setVisible(true);
-        
+
     }//GEN-LAST:event_jMenuItemChangeSizeActionPerformed
 
     private void jSliderBrightnessStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderBrightnessStateChanged
 
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        
-        
-        if (vi != null && this.imgTmp != null) {
-            try {
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+
+        if (vi != null && this.imgTmp != null)
+            try
+            {
                 RescaleOp rop;
-                if (this.imgTmp.getColorModel().hasAlpha()) {
-                    float[] scales = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
+                if (this.imgTmp.getColorModel().hasAlpha())
+                {
+                    float[] scales = new float[]
+                    {
+                        1.0f, 1.0f, 1.0f, 1.0f
+                    };
                     float vBrillo = this.jSliderBrightness.getValue();
-                    float[] offsets = new float[]{vBrillo, vBrillo, vBrillo, 0.0f};
+                    float[] offsets = new float[]
+                    {
+                        vBrillo, vBrillo, vBrillo, 0.0f
+                    };
                     rop = new RescaleOp(scales, offsets, null);
-                } else {
+                } else
                     rop = new RescaleOp(1.0f, this.jSliderBrightness.getValue(), null);
-                }
                 BufferedImage imgdest = rop.filter(this.imgTmp, null);
                 vi.getCanvas().setImage(imgdest);
                 vi.getCanvas().repaint();
-            }
-            catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.err.println("Error");
             }
-        }
     }//GEN-LAST:event_jSliderBrightnessStateChanged
 
     private void jComboBoxFilterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxFilterItemStateChanged
-    
-        
-        
 
-        
-        
+
     }//GEN-LAST:event_jComboBoxFilterItemStateChanged
 
     private void jSliderBrightnessFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSliderBrightnessFocusGained
-         
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        
+
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+
         if (vi != null)
             this.imgTmp = vi.getCanvas().getImage();
-        
+
     }//GEN-LAST:event_jSliderBrightnessFocusGained
 
     private void jSliderBrightnessFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSliderBrightnessFocusLost
@@ -994,35 +1047,34 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jComboBoxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFilterActionPerformed
 
-        
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        if (vi != null) {
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null)
+        {
             this.imgTmp = vi.getCanvas().getImage();
-            if (this.imgTmp != null) {
-                try {
+            if (this.imgTmp != null)
+                try
+                {
                     Kernel k = KernelProducer.createKernel(this.jComboBoxFilter.getSelectedIndex());
                     ConvolveOp cop = new ConvolveOp(k, 1, null);
                     BufferedImage imgDest = cop.filter(this.imgTmp, null);
                     vi.getCanvas().setImage(imgDest);
                     vi.getCanvas().repaint();
-                }
-                catch (Exception e) {
+                } catch (Exception e)
+                {
                     System.err.println("Error");
                 }
-            }
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jComboBoxFilterActionPerformed
 
     private void jComboBoxFilterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxFilterFocusGained
-            
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        
+
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+
         if (vi != null)
             this.imgTmp = vi.getCanvas().getImage();
-        
+
     }//GEN-LAST:event_jComboBoxFilterFocusGained
 
     private void jButtonConstrastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConstrastActionPerformed
@@ -1038,8 +1090,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonContrastDarkActionPerformed
 
     private void jSliderRotateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSliderRotateFocusGained
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+
         if (vi != null)
             this.imgTmp = vi.getCanvas().getImage();
     }//GEN-LAST:event_jSliderRotateFocusGained
@@ -1070,7 +1122,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItemHelpAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHelpAboutActionPerformed
         String msg = "<html><body><p>UGR - Sistemas Multimedia</p><p>2016 - Ernesto Serrano <a href='mailto:erseco@correo.ugr.es'>erseco@correo.ugr.es</a></p><p><a href='http://www.ernesto.es'>http://www.ernesto.es</a></p></body></html>";
-        JOptionPane.showMessageDialog(this, msg, "Acerca de..." , JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, msg, "Acerca de...", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItemHelpAboutActionPerformed
 
     private void jCheckBoxMenuItemToolBarStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItemToolBarStyleActionPerformed
@@ -1080,35 +1132,30 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButtonSinuSoidalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSinuSoidalActionPerformed
         BufferedImage imgSource;
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        if (vi != null && (imgSource = vi.getCanvas().getImage()) != null) 
-        {
-            try {
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null && (imgSource = vi.getCanvas().getImage()) != null)
+            try
+            {
                 LookupTable lt = this.sinus(180);
                 LookupOp lop = new LookupOp(lt, null);
                 lop.filter(imgSource, imgSource);
                 vi.repaint();
-            }
-            catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.err.println("Error");
             }
-        }
     }//GEN-LAST:event_jButtonSinuSoidalActionPerformed
 
     private void jMenuItemDuplicateImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDuplicateImageActionPerformed
 
-        
-        
         InternalWindow vi = new InternalWindow();
-        
+
         // Truquillo para mostrar las ventanas en cascada, le sumamos 25 pixeles a la nueva
-        InternalWindow selectedWindow = (InternalWindow)this.desktop.getSelectedFrame();
-        if (selectedWindow != null) 
+        InternalWindow selectedWindow = (InternalWindow) this.desktop.getSelectedFrame();
+        if (selectedWindow != null)
         {
 
             vi.setLocation(selectedWindow.getX() + 25, selectedWindow.getY() + 25);
-
-
 
             vi.setParent(this);
             desktop.add(vi);
@@ -1116,8 +1163,7 @@ public class MainWindow extends javax.swing.JFrame {
             vi.setTitle("Copia de " + selectedWindow.getTitle());
 
             CanvasImage canvas = selectedWindow.getCanvas().clone();
-            BufferedImage img = (BufferedImage)canvas.getImage();
-
+            BufferedImage img = (BufferedImage) canvas.getImage();
 
             // le ponemos el color blanco (si no saldría negra)
             img.createGraphics().setPaint(Color.white);
@@ -1130,125 +1176,261 @@ public class MainWindow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItemDuplicateImageActionPerformed
 
+    private void jButtonBinaryAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBinaryAddActionPerformed
+
+        InternalWindow vi = (InternalWindow) (this.desktop.getSelectedFrame());
+        if (vi != null)
+        {
+            InternalWindow viNext = (InternalWindow) this.desktop.selectFrame(false);
+            if (viNext != null)
+            {
+                BufferedImage imgRight = vi.getCanvas().getImage();
+                BufferedImage imgLeft = viNext.getCanvas().getImage();
+                if (imgRight != null && imgLeft != null)
+                    try
+                    {
+                        BlendOp op = new BlendOp(imgLeft);
+                        BufferedImage imgdest = op.filter(imgRight, null);
+                        vi = new InternalWindow();
+                        vi.setParent(this);
+                        vi.getCanvas().setImage(imgdest);
+                        this.desktop.add(vi);
+                        vi.setVisible(true);
+                    } catch (IllegalArgumentException e)
+                    {
+                        System.err.println("Error: " + e.getLocalizedMessage());
+                    }
+            }
+        }
+    }//GEN-LAST:event_jButtonBinaryAddActionPerformed
+
+    private void jButtonBinarySubstractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBinarySubstractActionPerformed
+
+        InternalWindow vi = (InternalWindow) (this.desktop.getSelectedFrame());
+        if (vi != null)
+        {
+            InternalWindow viNext = (InternalWindow) this.desktop.selectFrame(false);
+            if (viNext != null)
+            {
+                BufferedImage imgRight = vi.getCanvas().getImage();
+                BufferedImage imgLeft = viNext.getCanvas().getImage();
+                if (imgRight != null && imgLeft != null)
+                    try
+                    {
+                        SubtractionOp op = new SubtractionOp(imgLeft);
+                        BufferedImage imgdest = op.filter(imgRight, null);
+                        vi = new InternalWindow();
+                        vi.setParent(this);
+                        vi.getCanvas().setImage(imgdest);
+                        this.desktop.add(vi);
+                        vi.setVisible(true);
+                    } catch (IllegalArgumentException e)
+                    {
+                        System.err.println("Error: " + e.getLocalizedMessage());
+                    }
+            }
+        }
+    }//GEN-LAST:event_jButtonBinarySubstractActionPerformed
+
+    private void jSliderUmbralizationFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSliderUmbralizationFocusGained
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        this.imgTmp = vi != null ? vi.getCanvas().getImage() : null;
+    }//GEN-LAST:event_jSliderUmbralizationFocusGained
+
+    private void jSliderUmbralizationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSliderUmbralizationFocusLost
+        this.imgTmp = null;
+        this.jSliderUmbralization.setValue(128);
+    }//GEN-LAST:event_jSliderUmbralizationFocusLost
+
+    private void jSliderUmbralizationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderUmbralizationStateChanged
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null && this.imgTmp != null)
+            try
+            {
+                int umbral = this.jSliderUmbralization.getValue();
+                ThresholdOp top = new ThresholdOp(umbral);
+                BufferedImage imgdest = top.filter(this.imgTmp, null);
+                vi.getCanvas().setImage(imgdest);
+                vi.getCanvas().repaint();
+            } catch (Exception e)
+            {
+                System.err.println("Error en la operaci\u00f3n ('" + e.getLocalizedMessage() + "')");
+            }
+    }//GEN-LAST:event_jSliderUmbralizationStateChanged
+
+    private void jButtonSepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSepiaActionPerformed
+        BufferedImage imgSource;
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null && (imgSource = vi.getCanvas().getImage()) != null)
+            try
+            {
+                SepiaOp sepia = new SepiaOp();
+                sepia.filter(imgSource, imgSource);
+                vi.repaint();
+            } catch (Exception e)
+            {
+                System.err.println("Error en la operaci\u00f3n ('" + e.getLocalizedMessage() + "')");
+            }
+    }//GEN-LAST:event_jButtonSepiaActionPerformed
+
+    private void jButtonGradientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGradientActionPerformed
+
+        BufferedImage imgSource;
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null && (imgSource = vi.getCanvas().getImage()) != null)
+            try
+            {
+                SobelOp sepia = new SobelOp();
+                sepia.filter(imgSource, imgSource);
+                vi.repaint();
+            } catch (Exception e)
+            {
+                System.err.println("Error en la operaci\u00f3n ('" + e.getLocalizedMessage() + "')");
+            }
+
+
+    }//GEN-LAST:event_jButtonGradientActionPerformed
+
+    private void jButtonBinaryProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBinaryProductActionPerformed
+
+        InternalWindow vi = (InternalWindow) (this.desktop.getSelectedFrame());
+        if (vi != null)
+        {
+            InternalWindow viNext = (InternalWindow) this.desktop.selectFrame(false);
+            if (viNext != null)
+            {
+                BufferedImage imgRight = vi.getCanvas().getImage();
+                BufferedImage imgLeft = viNext.getCanvas().getImage();
+                if (imgRight != null && imgLeft != null)
+                    try
+                    {
+                        ProductOp op = new ProductOp(imgLeft);
+                        BufferedImage imgdest = op.filter(imgRight, null);
+                        vi = new InternalWindow();
+                        vi.setParent(this);
+                        vi.getCanvas().setImage(imgdest);
+                        this.desktop.add(vi);
+                        vi.setVisible(true);
+                    } catch (IllegalArgumentException e)
+                    {
+                        System.err.println("Error: " + e.getLocalizedMessage());
+                    }
+            }
+        }
+
+    }//GEN-LAST:event_jButtonBinaryProductActionPerformed
+
     private void setContrast(int type)
     {
-    
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        
-        if (vi != null) 
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+
+        if (vi != null)
         {
             BufferedImage imgSource = vi.getCanvas().getImage();
-            if(imgSource!=null)
-            {
+            if (imgSource != null)
                 try
                 {
                     LookupTable lt = LookupTableProducer.createLookupTable(type);
-                    
+
                     LookupOp lop = new LookupOp(lt, null);
 
                     // Imagen origen y destino iguales
-                    lop.filter( imgSource , imgSource);
+                    lop.filter(imgSource, imgSource);
                     vi.repaint();
-                } catch(Exception e)
+                } catch (Exception e)
                 {
                     System.err.println("Error");
                 }
-            } 
 
         }
-    
+
     }
-    
-    private void scale(double scaleFactor) 
+
+    private void scale(double scaleFactor)
     {
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        if (vi != null) 
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null)
         {
             BufferedImage imgSource = vi.getCanvas().getImage();;
-            if (imgSource == null) {
+            if (imgSource == null)
                 imgSource = vi.getCanvas().getImage();
-            }
-            if (imgSource != null) {
-                try {
+            if (imgSource != null)
+                try
+                {
                     AffineTransform at = AffineTransform.getScaleInstance(scaleFactor, scaleFactor);
                     AffineTransformOp atop = new AffineTransformOp(at, 2);
                     BufferedImage imgdest = atop.filter(imgSource, null);
                     vi.getCanvas().setImage(imgdest);
                     vi.getCanvas().repaint();
-                }
-                catch (Exception e) {
+                } catch (Exception e)
+                {
                     System.err.println("Error");
                 }
-            }
         }
     }
 
-    private void rotate(int angle) 
+    private void rotate(int angle)
     {
-        
-        InternalWindow vi = (InternalWindow)this.desktop.getSelectedFrame();
-        if (vi != null) 
+
+        InternalWindow vi = (InternalWindow) this.desktop.getSelectedFrame();
+        if (vi != null)
         {
             double radians = Math.toRadians(angle);
-            
-            if (this.imgTmp == null) {
+
+            if (this.imgTmp == null)
                 this.imgTmp = vi.getCanvas().getImage();
-            }
-            if (this.imgTmp != null) {
-                try {
+            if (this.imgTmp != null)
+                try
+                {
                     AffineTransform at = AffineTransform.getRotateInstance(radians, this.imgTmp.getWidth() / 2, this.imgTmp.getHeight() / 2);
                     AffineTransformOp atop = new AffineTransformOp(at, 2);
                     BufferedImage imgdest = atop.filter(this.imgTmp, null);
                     vi.getCanvas().setImage(imgdest);
                     vi.getCanvas().repaint();
-                }
-                catch (Exception e) {
+                } catch (Exception e)
+                {
                     System.err.println("Error");
                 }
-            }
         }
     }
-    
-    
+
     public LookupTable sinus(double w)
     {
-           double K = 255.0; // Cte de normalización
-           // Código implementado f(x)=|sin(wx)|
+        double K = 255.0; // Cte de normalización
+        // Código implementado f(x)=|sin(wx)|
 
-           
-           
-            K = K / Math.sin(Math.toRadians(90.0));
-            byte[] lt = new byte[256];
-            for (int l = 0; l <= 255; ++l) {
-                lt[l] = (byte)(K * Math.abs(Math.sin(Math.toRadians((double)l * w))));
-            }
-            ByteLookupTable slt = new ByteLookupTable(0, lt);
-            return slt;
-           
+        K = K / Math.sin(Math.toRadians(90.0));
+        byte[] lt = new byte[256];
+        for (int l = 0; l <= 255; ++l)
+            lt[l] = (byte) (K * Math.abs(Math.sin(Math.toRadians((double) l * w))));
+        ByteLookupTable slt = new ByteLookupTable(0, lt);
+        return slt;
+
     }
-    
+
     public void setCursorPosition(String text)
     {
         this.jStatusBarCursor.setText(text);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton180;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonBinaryAdd;
+    private javax.swing.JButton jButtonBinaryProduct;
     private javax.swing.JButton jButtonBinarySubstract;
     private javax.swing.JButton jButtonColorChooser;
     private javax.swing.JButton jButtonConstrast;
     private javax.swing.JButton jButtonConstrastBright;
     private javax.swing.JButton jButtonContrastDark;
+    private javax.swing.JButton jButtonGradient;
     private javax.swing.ButtonGroup jButtonGroupTools;
     private javax.swing.JButton jButtonNew;
     private javax.swing.JButton jButtonOpen;
     private javax.swing.JButton jButtonRotate270;
     private javax.swing.JButton jButtonRotate90;
     private javax.swing.JButton jButtonSave;
+    private javax.swing.JButton jButtonSepia;
     private javax.swing.JButton jButtonSinuSoidal;
     private javax.swing.JButton jButtonZoomMinus;
     private javax.swing.JButton jButtonZoomPlus;

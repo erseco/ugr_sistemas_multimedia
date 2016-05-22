@@ -26,58 +26,56 @@ import java.awt.image.BufferedImage;
 import sm.esc.graphics.Shape;
 
 /**
-*
-* @author Ernesto Serrano
-*/
+ *
+ * @author Ernesto Serrano
+ */
 public class CanvasImage extends Canvas implements Cloneable
 {
 
     private BufferedImage img;
-    
+
     public void setImage(BufferedImage img)
     {
         this.img = img;
-        if(img!=null) {
-          setPreferredSize(new Dimension(img.getWidth(),img.getHeight()));
-          this.setClip(new Rectangle(0, 0, img.getWidth(), img.getHeight()));
+        if (img != null)
+        {
+            setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+            this.setClip(new Rectangle(0, 0, img.getWidth(), img.getHeight()));
         }
     }
-    public BufferedImage getImage(){
-        return img; 
+
+    public BufferedImage getImage()
+    {
+        return img;
     }
-    
-    
+
     @Override
-    public CanvasImage clone() 
+    public CanvasImage clone()
     {
         CanvasImage canvas = new CanvasImage();
         canvas.img = new BufferedImage(this.img.getWidth(), this.img.getHeight(), BufferedImage.TYPE_INT_ARGB);
         canvas.img.setData(this.img.getData());
-       canvas.img = this.img;
+        canvas.img = this.img;
         for (Shape shape : shapes)
-        {
 
-            canvas.shapes.add((Shape)shape.clone());
-
-        }
+            canvas.shapes.add((Shape) shape.clone());
         return canvas;
 
     }
-    
-    
-    public BufferedImage getImage(boolean drawVector) 
+
+    public BufferedImage getImage(boolean drawVector)
     {
-        if (drawVector) 
+        if (drawVector)
         {
             BufferedImage image = new BufferedImage(this.img.getWidth(), this.img.getHeight(), this.img.getType());
-            
+
             //nos guardamos el "clip" en una variable temporal y lo asignamos a null
             java.awt.Shape tmpShape = this.clip;
             this.clip = null;
-            
+
             // pintamos
             this.paint(image.createGraphics());
-            
+
             // volvemos a asignar el "clip"
             this.clip = tmpShape;
 
@@ -85,31 +83,31 @@ public class CanvasImage extends Canvas implements Cloneable
         }
         return this.getImage();
     }
-    
-    
+
     @Override
-    public void paintComponent(Graphics g) 
+    public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        
-        if (this.img != null) 
+
+        if (this.img != null)
             g.drawImage(this.img, 0, 0, this);
-       
-        if (this.clip != null) 
-            this.paintBorderClip((Graphics2D)g);
+
+        if (this.clip != null)
+            this.paintBorderClip((Graphics2D) g);
 
     }
 
-    private void paintBorderClip(Graphics2D g) 
+    private void paintBorderClip(Graphics2D g)
     {
         Stroke sk = g.getStroke();
-        float[] pattern = new float[]{3.0f, 3.0f};
+        float[] pattern = new float[]
+        {
+            3.0f, 3.0f
+        };
         BasicStroke dotted = new BasicStroke(1.0f, 0, 2, 1.0f, pattern, 0.0f);
         g.setStroke(dotted);
         g.draw(this.clip);
         g.setStroke(sk);
     }
-    
-    
-    
+
 }

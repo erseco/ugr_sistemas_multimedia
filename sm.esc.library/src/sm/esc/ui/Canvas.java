@@ -31,25 +31,24 @@ import sm.esc.graphics.Shape;
  *
  * @author Ernesto Serrano
  */
-public class Canvas extends javax.swing.JPanel implements Cloneable {
+public class Canvas extends javax.swing.JPanel implements Cloneable
+{
 
-    protected List<sm.esc.graphics.Shape> shapes = new ArrayList();;
+    protected List<sm.esc.graphics.Shape> shapes = new ArrayList();
+    ;
     protected sm.esc.graphics.Shape selectedShape;
     protected java.awt.Shape clip = null;
-    
+
     private Point2D selectedShapePosition = new Point(0, 0);
-    
-    
+
     /**
      * Creates new form Canvas
      */
-    public Canvas() {
+    public Canvas()
+    {
         initComponents();
-       
-    }
-    
 
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,108 +86,101 @@ public class Canvas extends javax.swing.JPanel implements Cloneable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-               
-        if ( Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND  )
+
+        if (Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND)
         {
-            if (null != this.selectedShape )
+            if (null != this.selectedShape)
                 // Establecemos la posicion sumandole la posicion al hacer click
-                this.selectedShape.setLocation(new Point((int)evt.getPoint().getX() + (int)this.selectedShapePosition.getX(), (int)evt.getPoint().getY() + (int)this.selectedShapePosition.getY()));
-                
-            
-            
-        }
-        else    
+                this.selectedShape.setLocation(new Point((int) evt.getPoint().getX() + (int) this.selectedShapePosition.getX(), (int) evt.getPoint().getY() + (int) this.selectedShapePosition.getY()));
+
+        } else
             this.selectedShape.resize(evt.getPoint());
-        
-       
+
         this.repaint();
-        
+
     }//GEN-LAST:event_formMouseDragged
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        
-        if ( Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND  )
+
+        if (Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND)
         {
 
-            
             // Obtenemos la forma seleccionada
             this.selectedShape = getSelectedShape(evt.getPoint());
-            
+
             if (this.selectedShape != null)
             {
                 // Guardamos la posicion de la figura seleccionada restandole donde estamos
                 double x = this.selectedShape.getBounds().getX();
                 double y = this.selectedShape.getBounds().getY();
                 this.selectedShapePosition.setLocation(x - evt.getPoint().x, y - evt.getPoint().y);
-            }           
-            
+            }
+
         } else
         {
             // Agregamos una nueva firgura
             this.selectedShape = new sm.esc.graphics.Shape(Config.GENERALCONFIG.clone(), evt.getPoint());
             this.shapes.add(this.selectedShape);
-            
 
-      
         }
-       
+
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        this. formMouseDragged(evt); 
+        this.formMouseDragged(evt);
     }//GEN-LAST:event_formMouseReleased
 
     @Override
-    public void paint(Graphics g) 
+    public void paint(Graphics g)
     {
-        super.paint(g); 
+        super.paint(g);
         this.paintShapeVector(g);
     }
-    
+
     private void paintShapeVector(Graphics g)
-    {        
-        Graphics2D g2d = (Graphics2D)g;
+    {
+        Graphics2D g2d = (Graphics2D) g;
 
         // Activamos el antialiasing GLOBAL
-        if ( Config.GENERALCONFIG.getAntialiasing() )
+        if (Config.GENERALCONFIG.getAntialiasing())
             g2d.setRenderingHints(new RenderingHints(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON
             ));
 
         // Activamos el canal alfa GLOBAL
-        if ( Config.GENERALCONFIG.getAlpha() )
+        if (Config.GENERALCONFIG.getAlpha())
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-        
-        if (this.clip != null) {
+
+        if (this.clip != null)
             g2d.clip(this.clip);
-        }
-        
+
         // Pintamos las figuras del vector
-        for ( sm.esc.graphics.Shape s : this.shapes ) 
+        for (sm.esc.graphics.Shape s : this.shapes)
             s.draw(g2d);
-           
+
     }
-    
-    
+
     private sm.esc.graphics.Shape getSelectedShape(Point2D p)
     {
-        for ( sm.esc.graphics.Shape s : this.shapes)         
-            if(s.contains(p)) 
+        for (sm.esc.graphics.Shape s : this.shapes)
+            if (s.contains(p))
                 return s;
-        
+
         return null;
-    
+
     }
-    
-    public java.awt.Shape getClip() {
+
+    public java.awt.Shape getClip()
+    {
         return this.clip;
     }
 
-    public void setClip(java.awt.Shape clip) {
+    public void setClip(java.awt.Shape clip)
+    {
         this.clip = clip;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

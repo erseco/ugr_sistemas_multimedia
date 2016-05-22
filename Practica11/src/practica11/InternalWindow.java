@@ -25,22 +25,26 @@ import sm.esc.ui.CanvasImage;
  *
  * @author Ernesto Serrano
  */
-public class InternalWindow extends javax.swing.JInternalFrame {
+public class InternalWindow extends javax.swing.JInternalFrame
+{
 
     private MainWindow parent;
-    
+
     /**
      * Creates new form VentanaInterna
      */
-    public InternalWindow() {
+    public InternalWindow()
+    {
         initComponents();
     }
 
     /**
      * Create a new window opening the indicated file
+     *
      * @param f file to open
      */
-    public InternalWindow(File f) {
+    public InternalWindow(File f)
+    {
         initComponents();
 
     }
@@ -49,7 +53,7 @@ public class InternalWindow extends javax.swing.JInternalFrame {
     {
         return this.canvas;
     }
-    
+
     public void setParent(MainWindow w)
     {
         this.parent = w;
@@ -105,18 +109,18 @@ public class InternalWindow extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void canvasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_canvasMouseMoved
-        
-        this.parent.setCursorPosition("(" + evt.getX() + "," + evt.getY() + ")");  
-        
-        if ( Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND  )       
+
+        this.parent.setCursorPosition("(" + evt.getX() + "," + evt.getY() + ")");
+
+        if (Config.GENERALCONFIG.getSelectedTool() == Config.Tool.HAND)
             this.setCursor(new Cursor(java.awt.Cursor.MOVE_CURSOR));
         else
-            this.setCursor(new Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));               
-        
+            this.setCursor(new Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+
     }//GEN-LAST:event_canvasMouseMoved
 
     private void canvasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_canvasMouseExited
-        this.parent.setCursorPosition("(x,y)");   
+        this.parent.setCursorPosition("(x,y)");
         this.setCursor(new Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_canvasMouseExited
 
