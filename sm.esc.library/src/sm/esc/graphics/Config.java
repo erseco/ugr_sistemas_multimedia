@@ -21,7 +21,10 @@ import java.awt.Color;
 import java.awt.Stroke;
 
 /**
- *
+ * Esta clase contiene la configuración de la ventana principal en un momento determinado
+ * cada vez que se crea un nuevo Shape se le asigna una copia del estado actual, que pasa a
+ * ser independiente para cada instancia de Shape
+ * 
  * @author Ernesto Serrano
  */
 public class Config implements Cloneable
@@ -37,7 +40,7 @@ public class Config implements Cloneable
     private Boolean alpha = false;
 
     /**
-     * Clones a Config object
+     * Clona el objeto
      *
      * @return the cloned Config instance
      */
@@ -56,7 +59,7 @@ public class Config implements Cloneable
     }
 
     /**
-     * All the drawings tools
+     * Enumeracion con todas las herramientas que se pueden usar en una imagen
      */
     public enum Tool
     {
@@ -87,51 +90,91 @@ public class Config implements Cloneable
         return this.selectedTool;
     }
 
+    /**
+     * Establece el color actual
+     * @param color el color a establecer
+     */
     public void setSelectedColor(Color color)
     {
         this.selectedColor = color;
     }
 
+    /**
+     * Obtiene el color actual
+     * @return un objeto Color
+     */
     public Color getSelectedColor()
     {
         return this.selectedColor;
     }
 
+    /**
+     * Establece si se debe rellenar la figura
+     * @param fill true si se debe rellenar
+     */
     public void setFillColor(Boolean fill)
     {
         this.fillColor = fill;
     }
 
+    /**
+     * Obtiene si se debe rellenar la figura
+     * @return true si se debe rellenar
+     */
     public Boolean getFillColor()
     {
         return this.fillColor;
     }
 
+    /**
+     * Establece el grosor de la linea
+     * @param pStroke grosor de la linea
+     */
     public void setStroke(int pStroke)
     {
         this.stroke = new BasicStroke(pStroke);
     }
 
+    /**
+     * Obtiene el grosor de la linea
+     * @return  grosor de la linea
+     */
     public Stroke getStroke()
     {
         return this.stroke;
     }
 
+    /**
+     * Establece el suavizado
+     * @param antialiasing  true si se debe suavizar
+     */
     public void setAntialiasing(Boolean antialiasing)
     {
         this.antialiasing = antialiasing;
     }
 
+    /**
+     * Obtiene si esta activado el suavizado
+     * @return true si se debe suavizar
+     */
     public Boolean getAntialiasing()
     {
         return this.antialiasing;
     }
 
+    /**
+     * Activa el canal alfa
+     * @param alpha true si esta activado
+     */
     public void setAlpha(Boolean alpha)
     {
         this.alpha = alpha;
     }
 
+    /**
+     * Obtiene si está activado el canal alpha
+     * @return true si esta activado
+     */
     public Boolean getAlpha()
     {
         return this.alpha;

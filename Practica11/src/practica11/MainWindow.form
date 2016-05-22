@@ -142,13 +142,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItemToolBarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItemToolBarStyle">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItemToolBarImageOperations">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Barra de estilo"/>
+                <Property name="text" type="java.lang.String" value="Barra de imagen"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItemToolBarStyleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItemToolBarImageOperationsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItemToolBarImageRotation">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Barra de rotacion y escalado"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItemToolBarImageRotationActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItemStatusBar">
@@ -181,6 +190,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDuplicateImageActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemHistogram">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Histograma"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemHistogramActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -552,14 +569,13 @@
                 <Component class="javax.swing.JComboBox" name="jComboBoxFilter">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="Emborronamiento media"/>
-                        <StringItem index="1" value="Emborronamiento binomial"/>
-                        <StringItem index="2" value="Enfoque"/>
-                        <StringItem index="3" value="Relieve"/>
-                        <StringItem index="4" value="Detector de fronteras laplaciano"/>
-                        <StringItem index="5" value="Negativo"/>
-                        <StringItem index="6" value="Escala de grises"/>
+                      <StringArray count="6">
+                        <StringItem index="0" value="--seleccione filtro--"/>
+                        <StringItem index="1" value="Emborronamiento media"/>
+                        <StringItem index="2" value="Emborronamiento binomial"/>
+                        <StringItem index="3" value="Enfoque"/>
+                        <StringItem index="4" value="Relieve"/>
+                        <StringItem index="5" value="Detector de fronteras laplaciano"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -633,6 +649,9 @@
                     <TitledBorder title="Operaciones"/>
                   </Border>
                 </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[158, 64]"/>
+                </Property>
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
@@ -640,16 +659,19 @@
                 <Property name="rows" type="int" value="1"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButtonSinuSoidal">
+                <Component class="javax.swing.JButton" name="jButtonSinus">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/practica11/images/icon_sinusoidal.png"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Sinusoidal"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Seno"/>
                     <Property name="alignmentX" type="float" value="10.0"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32, 32]"/>
+                    </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSinuSoidalActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSinusActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButtonSepia">
@@ -658,20 +680,40 @@
                       <Image iconType="3" name="/practica11/images/icon_sepia.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Sepia"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32, 32]"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSepiaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButtonGradient">
+                <Component class="javax.swing.JButton" name="jButtonSobel">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/practica11/images/icon_gradient.png"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Gradiente"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Gradiente Sobel"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32, 32]"/>
+                    </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGradientActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSobelActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButtonTinted">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/practica11/images/icon_tinted.png"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Tintado"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[32, 32]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTintedActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -755,6 +797,16 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JSlider" name="jSliderBinaryOperations">
+                  <Properties>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[80, 29]"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSliderBinaryOperationsStateChanged"/>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jSliderBinaryOperationsFocusGained"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jSliderBinaryOperationsMouseExited"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -952,7 +1004,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JToolBar" name="jToolBar1">
+        <Container class="javax.swing.JToolBar" name="jToolBarImageRotation">
           <Properties>
             <Property name="rollover" type="boolean" value="true"/>
           </Properties>

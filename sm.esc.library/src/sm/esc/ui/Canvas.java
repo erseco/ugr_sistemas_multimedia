@@ -25,18 +25,25 @@ import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import sm.esc.graphics.Shape;
 
 /**
- *
+ * Clase que extiene un JPanel para pintar sobre el un vector de formas
  * @author Ernesto Serrano
  */
 public class Canvas extends javax.swing.JPanel implements Cloneable
 {
 
+    /**
+     * Vector de formas
+     */
     protected List<sm.esc.graphics.Shape> shapes = new ArrayList();
-    ;
+    /**
+     * Forma seleccionada
+     */
     protected sm.esc.graphics.Shape selectedShape;
+    /**
+     * El clip (borde)
+     */
     protected java.awt.Shape clip = null;
 
     private Point2D selectedShapePosition = new Point(0, 0);
@@ -93,7 +100,7 @@ public class Canvas extends javax.swing.JPanel implements Cloneable
                 // Establecemos la posicion sumandole la posicion al hacer click
                 this.selectedShape.setLocation(new Point((int) evt.getPoint().getX() + (int) this.selectedShapePosition.getX(), (int) evt.getPoint().getY() + (int) this.selectedShapePosition.getY()));
 
-        } else
+        } else if (this.selectedShape != null)
             this.selectedShape.resize(evt.getPoint());
 
         this.repaint();
@@ -171,12 +178,7 @@ public class Canvas extends javax.swing.JPanel implements Cloneable
 
     }
 
-    public java.awt.Shape getClip()
-    {
-        return this.clip;
-    }
-
-    public void setClip(java.awt.Shape clip)
+    protected void setClip(java.awt.Shape clip)
     {
         this.clip = clip;
     }

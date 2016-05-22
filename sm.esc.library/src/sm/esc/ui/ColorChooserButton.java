@@ -30,7 +30,9 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
 /**
- *
+ * Esta clase extiende un JButton y hace que al hacer click en el mismo despligue un 
+ * panel jColorChooser, una vez seleccionado pondra el color seleccionado como fondo del botón
+ * 
  * @author Ernesto Serrano
  */
 public class ColorChooserButton extends JButton
@@ -38,6 +40,10 @@ public class ColorChooserButton extends JButton
 
     private Color current;
 
+    /**
+     * Constructor de la clase
+     * @param c se le indica el color por defecto que tendrá el botón
+     */
     public ColorChooserButton(Color c)
     {
         setSelectedColor(c);
@@ -51,17 +57,29 @@ public class ColorChooserButton extends JButton
             }
         });
     }
-
+    
+    /**
+     * método para obtener el color seleccionado
+     * @return el color seleccionado
+     */
     public Color getSelectedColor()
     {
         return current;
     }
-
+    
+    /**
+     * método para establecer el color seleccionado
+     * @param newColor se le indica el color que tendrá el botón
+     */
     public void setSelectedColor(Color newColor)
     {
         setSelectedColor(newColor, true);
     }
-
+    /**
+     * método para establecer el color seleccionado
+     * @param newColor se le indica el color que tendrá el botón
+     * @param notify se le indica que debe generar un evento cuando cambie el color
+     */
     public void setSelectedColor(Color newColor, boolean notify)
     {
 
@@ -78,6 +96,9 @@ public class ColorChooserButton extends JButton
                 l.colorChanged(newColor);
     }
 
+    /**
+     * Listener que podemos implementar para detectar el cambio de color
+     */
     public static interface ColorChangedListener
     {
 
@@ -86,12 +107,23 @@ public class ColorChooserButton extends JButton
 
     private List<ColorChangedListener> listeners = new ArrayList<ColorChangedListener>();
 
+    /**
+     * Método para asociar un determinado evento a una funcion y almacenarlos en la lista de eventos
+     * @param toAdd puntero a la funcion a llamar cuando cambie el color
+     */
     public void addColorChangedListener(ColorChangedListener toAdd)
     {
         listeners.add(toAdd);
     }
 
-    public static ImageIcon createIcon(Color main, int width, int height)
+    /**
+     * Crea un icono para asignarselo como fondo al botón
+     * @param main
+     * @param width
+     * @param height
+     * @return 
+     */
+    private static ImageIcon createIcon(Color main, int width, int height)
     {
         BufferedImage image = new BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = image.createGraphics();

@@ -17,7 +17,9 @@
 package practica11;
 
 /**
- *
+ * Esta es la clase de entrada a la aplicación, establece el tema "Nimbus" de 
+ * apariencia y hace visible la ventana principal (MainWindow)
+ * 
  * @author Ernesto Serrano
  */
 public class Practica11

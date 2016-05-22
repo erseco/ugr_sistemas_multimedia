@@ -17,12 +17,11 @@
 package practica11;
 
 import java.awt.Cursor;
-import java.io.File;
 import sm.esc.graphics.Config;
 import sm.esc.ui.CanvasImage;
 
 /**
- *
+ * Esta clase representa una ventana interna
  * @author Ernesto Serrano
  */
 public class InternalWindow extends javax.swing.JInternalFrame
@@ -39,21 +38,18 @@ public class InternalWindow extends javax.swing.JInternalFrame
     }
 
     /**
-     * Create a new window opening the indicated file
      *
-     * @param f file to open
+     * @return
      */
-    public InternalWindow(File f)
-    {
-        initComponents();
-
-    }
-
     public CanvasImage getCanvas()
     {
         return this.canvas;
     }
 
+    /**
+     * Establece el padre de la ventana
+     * @param w la instancia de MainWindow
+     */
     public void setParent(MainWindow w)
     {
         this.parent = w;
@@ -107,7 +103,10 @@ public class InternalWindow extends javax.swing.JInternalFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Controla cuando el ratón ha entrado en el lienzo para pintar la posición
+     * @param evt el evento del ratón
+     */
     private void canvasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_canvasMouseMoved
 
         this.parent.setCursorPosition("(" + evt.getX() + "," + evt.getY() + ")");
@@ -118,7 +117,11 @@ public class InternalWindow extends javax.swing.JInternalFrame
             this.setCursor(new Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
 
     }//GEN-LAST:event_canvasMouseMoved
-
+    
+    /**
+     * Controla cuando el ratón ha salido del lienzo para dejar de pintar la posición
+     * @param evt el evento del ratón
+     */
     private void canvasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_canvasMouseExited
         this.parent.setCursorPosition("(x,y)");
         this.setCursor(new Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -26,14 +26,19 @@ import java.awt.image.BufferedImage;
 import sm.esc.graphics.Shape;
 
 /**
- *
+ * Esta clase hereda de la clase Canvas y le agrega las funciones necearias
+ * para asignar una imagen a la misma, así como para pintarle el borde (clip)
  * @author Ernesto Serrano
  */
 public class CanvasImage extends Canvas implements Cloneable
 {
-
+    
     private BufferedImage img;
 
+    /**
+     * Establece la imagen que tendrá el lienzo
+     * @param img imagen a establecer
+     */
     public void setImage(BufferedImage img)
     {
         this.img = img;
@@ -44,11 +49,11 @@ public class CanvasImage extends Canvas implements Cloneable
         }
     }
 
-    public BufferedImage getImage()
-    {
-        return img;
-    }
 
+    /**
+     * Funcion para clonar un objeto lienzo
+     * @return una copia del lienzo actual
+     */
     @Override
     public CanvasImage clone()
     {
@@ -63,6 +68,11 @@ public class CanvasImage extends Canvas implements Cloneable
 
     }
 
+    /**
+     * Obtiene la imagen con o sin el vector de formas
+     * @param drawVector define si se debe dibujar el vector de formas
+     * @return la imagen actual con o sin el vector de formas
+     */
     public BufferedImage getImage(boolean drawVector)
     {
         if (drawVector)
@@ -81,9 +91,13 @@ public class CanvasImage extends Canvas implements Cloneable
 
             return image;
         }
-        return this.getImage();
+        return this.img;
     }
 
+    /**
+     * Pintal los componentes
+     * @param g objecto graphics
+     */
     @Override
     public void paintComponent(Graphics g)
     {
@@ -97,6 +111,10 @@ public class CanvasImage extends Canvas implements Cloneable
 
     }
 
+    /**
+     * Pinta un borde punteado alrededor de la imagen
+     * @param g objecto graphics
+     */
     private void paintBorderClip(Graphics2D g)
     {
         Stroke sk = g.getStroke();

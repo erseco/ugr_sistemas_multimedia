@@ -29,7 +29,9 @@ import static sm.esc.graphics.Config.Tool.LINE;
 import static sm.esc.graphics.Config.Tool.POINT;
 
 /**
- *
+ * Esta clase define una figura de nuestra aplicación, hereda de Shape y le agrea 
+ * mas funcionalidad
+ * 
  * @author Ernesto Serrano
  */
 public class Shape implements java.awt.Shape, Cloneable
@@ -38,6 +40,11 @@ public class Shape implements java.awt.Shape, Cloneable
     private Config config;
     private java.awt.Shape internalShape;
 
+    /**
+     * Cosntructor de la clase
+     * @param config una copia del objeto config actual
+     * @param startPoint la posicion inicial
+     */
     public Shape(Config config, Point startPoint)
     {
         this.config = config;
@@ -64,6 +71,10 @@ public class Shape implements java.awt.Shape, Cloneable
 
     }
 
+    /**
+     * Clone una imagen en otra
+     * @return 
+     */
     @Override
     public Shape clone()
     {
@@ -74,6 +85,10 @@ public class Shape implements java.awt.Shape, Cloneable
         return shape;
     }
 
+    /**
+     * Establece la nueva posicion de la figura
+     * @param newStartPoint 
+     */
     public void setLocation(Point newStartPoint)
     {
         Point originalLocation = this.getLocation();
@@ -113,6 +128,10 @@ public class Shape implements java.awt.Shape, Cloneable
         //this.startPoint = p;
     }
 
+    /**
+     * Pinta la figura
+     * @param g2d objeto Graphics2D
+     */
     public void draw(Graphics2D g2d)
     {
         g2d.setPaint(this.config.getSelectedColor());
@@ -124,6 +143,10 @@ public class Shape implements java.awt.Shape, Cloneable
 
     }
 
+    /**
+     * Redimensiona la figura
+     * @param endPoint 
+     */
     public void resize(Point endPoint)
     {
 
@@ -164,29 +187,53 @@ public class Shape implements java.awt.Shape, Cloneable
 
     }
 
+    /**
+     * Comprueba si un determinado punto está cerca de la posición indicada
+     * @param p punto
+     * @return true si está cerca (a menos de 5 pixeles)
+     */
     private boolean isNear(Point2D p)
     {
         return ((Line2D) this.internalShape).ptSegDist(p) <= 5.0;
     }
 
+    /**
+     * Obtiene las dimensiones de la figura
+     * @return un objeto Rectangle
+     */
     @Override
     public Rectangle getBounds()
     {
         return this.internalShape.getBounds();
     }
 
+    /**
+     * Obtiene las dimensiones de la figura
+     * @return un objeto Rectangle2D
+     */
     @Override
     public Rectangle2D getBounds2D()
     {
         return this.internalShape.getBounds2D();
     }
 
+    /**
+     * Comprueba si el objeto está en las cordenadas
+     * @param x punto del eje x
+     * @param y punto del eje y
+     * @return true si está dentro
+     */
     @Override
     public boolean contains(double x, double y)
     {
         return this.internalShape.contains(x, y);
     }
 
+    /**
+     * Comprueba si el objeto está en las cordenadas
+     * @param p punto en forma de objeto Point2D
+     * @return true si está dentro
+     */
     @Override
     public boolean contains(Point2D p)
     {
@@ -197,12 +244,25 @@ public class Shape implements java.awt.Shape, Cloneable
         return this.internalShape.contains(p);
     }
 
+    /**
+     * Dice si el punto está en una interseccion
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     * @return 
+     */
     @Override
     public boolean intersects(double x, double y, double w, double h)
     {
         return this.internalShape.intersects(x, y, w, h);
     }
 
+    /**
+     * Dice si el punto está en una interseccion
+     * @param r
+     * @return 
+     */
     @Override
     public boolean intersects(Rectangle2D r)
     {
@@ -221,18 +281,33 @@ public class Shape implements java.awt.Shape, Cloneable
         return this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
+    /**
+     * OBtiene el objeto pathIterator
+     * @param at
+     * @return 
+     */
     @Override
     public PathIterator getPathIterator(AffineTransform at)
     {
         return this.internalShape.getPathIterator(at);
     }
 
+    /**
+     * Obtiene el objeto pathIterator
+     * @param at
+     * @param flatness
+     * @return 
+     */
     @Override
     public PathIterator getPathIterator(AffineTransform at, double flatness)
     {
         return this.internalShape.getPathIterator(at, flatness);
     }
 
+    /**
+     * Obtiene la posición de la figura en el lienzo
+     * @return un objeto Point con la posicion
+     */
     private Point getLocation()
     {
         switch (this.config.getSelectedTool())
