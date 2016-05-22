@@ -24,7 +24,7 @@ import sm.esc.ui.CanvasImage;
  * Esta clase representa una ventana interna
  * @author Ernesto Serrano
  */
-public class InternalWindow extends javax.swing.JInternalFrame
+public class InternalWindowImage extends javax.swing.JInternalFrame
 {
 
     private MainWindow parent;
@@ -32,7 +32,7 @@ public class InternalWindow extends javax.swing.JInternalFrame
     /**
      * Creates new form VentanaInterna
      */
-    public InternalWindow()
+    public InternalWindowImage()
     {
         initComponents();
     }
@@ -75,6 +75,32 @@ public class InternalWindow extends javax.swing.JInternalFrame
         setMaximumSize(null);
         setMinimumSize(new java.awt.Dimension(200, 200));
         setPreferredSize(new java.awt.Dimension(600, 400));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener()
+        {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt)
+            {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt)
+            {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)
+            {
+                formInternalFrameDeactivated(evt);
+            }
+        });
 
         canvas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
         {
@@ -131,6 +157,16 @@ public class InternalWindow extends javax.swing.JInternalFrame
         this.parent.setCursorPosition("(x,y)");
         this.setCursor(new Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_canvasMouseExited
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameActivated
+    {//GEN-HEADEREND:event_formInternalFrameActivated
+        this.parent.setImageWindowActivated();
+    }//GEN-LAST:event_formInternalFrameActivated
+
+    private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt)//GEN-FIRST:event_formInternalFrameDeactivated
+    {//GEN-HEADEREND:event_formInternalFrameDeactivated
+        this.parent.setImageWindowDeactivated();
+    }//GEN-LAST:event_formInternalFrameDeactivated
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

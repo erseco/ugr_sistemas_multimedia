@@ -61,7 +61,10 @@ public class InternalWindowAudioPlayer extends javax.swing.JInternalFrame
             this.jProgressBar.setMinimum(0);
             this.jProgressBar.setMaximum(durationInMiliSeconds-1);
         
-        } catch (UnsupportedAudioFileException | IOException ex)
+        } catch (UnsupportedAudioFileException ex)
+        {
+            Logger.getLogger(InternalWindowAudioPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
         {
             Logger.getLogger(InternalWindowAudioPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
