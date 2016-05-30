@@ -16,6 +16,10 @@
  */
 package smm;
 
+import javax.media.Format;
+import javax.media.PlugInManager;
+import javax.media.format.AudioFormat;
+
 /**
  * Esta es la clase de entrada a la aplicación, establece el tema "Nimbus" de 
  * apariencia y hace visible la ventana principal (MainWindow)
@@ -76,6 +80,16 @@ public class Practica13
         {
             public void run()
             {
+		Format input1 = new AudioFormat(AudioFormat.MPEGLAYER3);
+		Format input2 = new AudioFormat(AudioFormat.MPEG);
+		Format output = new AudioFormat(AudioFormat.LINEAR);
+		PlugInManager.addPlugIn(
+			"com.sun.media.codec.audio.mp3.JavaDecoder",
+			new Format[]{input1, input2},
+			new Format[]{output},
+			PlugInManager.CODEC
+		);
+                
                 new MainWindow().setVisible(true);
             }
         });

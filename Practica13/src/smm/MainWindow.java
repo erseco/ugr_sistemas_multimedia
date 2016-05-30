@@ -1079,9 +1079,9 @@ public class MainWindow extends javax.swing.JFrame
 //        dlg.setFileFilter(new FileNameExtensionFilter("Imagen PNG (*.png)", "png"));
 //        dlg.setFileFilter(new FileNameExtensionFilter("Imagen JPEG (*.jpg, *.jpeg)", "jpg", "jpeg"));
         dlg.setFileFilter(new FileNameExtensionFilter("Ficheros de imagen (*.jpg, *.jpeg, *.png, *.gif)", "jpg", "jpeg", "png", "gif"));
-        dlg.setFileFilter(new FileNameExtensionFilter("Ficheros de audio (*.wav, *.au)", "wav", "au"));
+        dlg.setFileFilter(new FileNameExtensionFilter("Ficheros de audio (*.wav, *.au)", "wav", "au", "mp3"));
         dlg.setFileFilter(new FileNameExtensionFilter("Ficheros de video (*.avi, *.mp4)", "avi", "mp4"));
-        dlg.setFileFilter(new FileNameExtensionFilter("Todos los tipos soportados", "avi", "mp4", "wav", "au", "jpg", "jpeg", "png", "gif"));
+        dlg.setFileFilter(new FileNameExtensionFilter("Todos los tipos soportados", "avi", "mp4", "wav", "au", "jpg", "jpeg", "png", "gif", "mp3"));
 
 
         dlg.setAcceptAllFileFilterUsed(false);
@@ -1092,7 +1092,7 @@ public class MainWindow extends javax.swing.JFrame
             File f = dlg.getSelectedFile();
             //Código
 
-            if ( f.getName().endsWith(".wav") || f.getName().endsWith(".au"))
+            if ( f.getName().endsWith(".wav") || f.getName().endsWith(".au") || f.getName().endsWith(".mp3"))
             {
 
                 InternalWindowAudioPlayer vi = new InternalWindowAudioPlayer(f);
