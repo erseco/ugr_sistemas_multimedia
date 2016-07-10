@@ -61,7 +61,6 @@ import sm.image.SubtractionOp;
 import sm.image.ThresholdOp;
 import sm.image.TintOp;
 import sm.sound.SMSoundRecorder;
-import sm.esc.ui.StrokeChooserComboBox;
 /**
  * Esta clase representa a la ventana principal de la aplicación, es la que contiene
  * las barras de herramientas, el menú y que contiene n ventanas internas (IntenalWindow)
@@ -85,6 +84,7 @@ public class MainWindow extends javax.swing.JFrame
     public int imageWidth = 400;
     private int ndocument = 1; // aqui guardamos el numero de documento para el titulo
 
+    private Shape clipBoardShape;
     /**
      * Creates new form VentanaPrincipal
      */
@@ -96,6 +96,8 @@ public class MainWindow extends javax.swing.JFrame
         this.setCustomControlEvents();
         // Desactivamos por defecto todos los elementos de las barras de imagen
         this.setImageWindowDeactivated();
+        
+        this.jSplitPane1.setDividerLocation(0.9);
     }
 
     /**
@@ -136,6 +138,9 @@ public class MainWindow extends javax.swing.JFrame
         jToggleButtonSolidFill = new javax.swing.JToggleButton();
         jToggleButtonHorizontalFill = new javax.swing.JToggleButton();
         jToggleButtonVerticalFill = new javax.swing.JToggleButton();
+        jToggleButtonRadialFill = new javax.swing.JToggleButton();
+        jToggleButtonDiagonal1Fill = new javax.swing.JToggleButton();
+        jToggleButtonDiagonal2Fill = new javax.swing.JToggleButton();
         jSeparator9 = new javax.swing.JToolBar.Separator();
         jToggleButtonAntialiasing = new javax.swing.JToggleButton();
         jSliderAlpha = new javax.swing.JSlider();
@@ -146,12 +151,19 @@ public class MainWindow extends javax.swing.JFrame
         jButtonWebCam = new javax.swing.JButton();
         jButtonSnapShot = new javax.swing.JButton();
         jPanelCenter = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
         desktop = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListShapes = new javax.swing.JList<>();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonMoveUp = new javax.swing.JButton();
+        jButtonMoveDown = new javax.swing.JButton();
         jToolBarImage = new javax.swing.JToolBar();
         jPanelImageBrightness = new javax.swing.JPanel();
         jSliderBrightness = new javax.swing.JSlider();
         jPanelImageFilter = new javax.swing.JPanel();
-        jComboBoxFilter = new javax.swing.JComboBox();
+        jComboBoxFilter = new javax.swing.JComboBox<>();
         jPanelImageContrast = new javax.swing.JPanel();
         jButtonConstrast = new javax.swing.JButton();
         jButtonConstrastBright = new javax.swing.JButton();
@@ -521,6 +533,49 @@ public class MainWindow extends javax.swing.JFrame
             }
         });
         jToolBarTools.add(jToggleButtonVerticalFill);
+
+        jButtonGroupFill.add(jToggleButtonRadialFill);
+        jToggleButtonRadialFill.setText("R");
+        jToggleButtonRadialFill.setToolTipText("Degradado Radial");
+        jToggleButtonRadialFill.setFocusable(false);
+        jToggleButtonRadialFill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonRadialFill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonRadialFill.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jToggleButtonRadialFillActionPerformed(evt);
+            }
+        });
+        jToolBarTools.add(jToggleButtonRadialFill);
+
+        jButtonGroupFill.add(jToggleButtonDiagonal1Fill);
+        jToggleButtonDiagonal1Fill.setText("D1");
+        jToggleButtonDiagonal1Fill.setFocusable(false);
+        jToggleButtonDiagonal1Fill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonDiagonal1Fill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonDiagonal1Fill.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jToggleButtonDiagonal1FillActionPerformed(evt);
+            }
+        });
+        jToolBarTools.add(jToggleButtonDiagonal1Fill);
+
+        jButtonGroupFill.add(jToggleButtonDiagonal2Fill);
+        jToggleButtonDiagonal2Fill.setText("D2");
+        jToggleButtonDiagonal2Fill.setFocusable(false);
+        jToggleButtonDiagonal2Fill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButtonDiagonal2Fill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButtonDiagonal2Fill.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jToggleButtonDiagonal2FillActionPerformed(evt);
+            }
+        });
+        jToolBarTools.add(jToggleButtonDiagonal2Fill);
         jToolBarTools.add(jSeparator9);
 
         jToggleButtonAntialiasing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sm/images/icon_antialiasing.png"))); // NOI18N
@@ -619,14 +674,59 @@ public class MainWindow extends javax.swing.JFrame
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1216, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanelCenter.add(desktop, java.awt.BorderLayout.CENTER);
+        jSplitPane1.setLeftComponent(desktop);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jListShapes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListShapes.setEnabled(false);
+        jListShapes.addListSelectionListener(new javax.swing.event.ListSelectionListener()
+        {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt)
+            {
+                jListShapesValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jListShapes);
+
+        jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButtonMoveUp.setText("Hacia delante");
+        jButtonMoveUp.setToolTipText("Mover Arriba");
+        jButtonMoveUp.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonMoveUpActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonMoveUp);
+
+        jButtonMoveDown.setText("Hacia el fondo");
+        jButtonMoveDown.setToolTipText("Mover Abajo");
+        jButtonMoveDown.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonMoveDownActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonMoveDown);
+
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        jSplitPane1.setRightComponent(jPanel1);
+
+        jPanelCenter.add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         jToolBarImage.setRollover(true);
         jToolBarImage.setMinimumSize(new java.awt.Dimension(544, 90));
@@ -669,7 +769,7 @@ public class MainWindow extends javax.swing.JFrame
         jPanelImageFilter.setMinimumSize(new java.awt.Dimension(108, 70));
         jPanelImageFilter.setLayout(new java.awt.GridLayout(1, 0));
 
-        jComboBoxFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--seleccione filtro--", "Emborronamiento media", "Emborronamiento binomial", "Enfoque", "Relieve", "Detector de fronteras laplaciano" }));
+        jComboBoxFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--seleccione filtro--", "Emborronamiento media", "Emborronamiento binomial", "Enfoque", "Relieve", "Detector de fronteras laplaciano" }));
         jComboBoxFilter.addItemListener(new java.awt.event.ItemListener()
         {
             public void itemStateChanged(java.awt.event.ItemEvent evt)
@@ -1129,16 +1229,37 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItemCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.META_MASK));
         jMenuItemCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sm/images/icon_cut.png"))); // NOI18N
         jMenuItemCut.setText("Cortar");
+        jMenuItemCut.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItemCutActionPerformed(evt);
+            }
+        });
         jMenuEdit.add(jMenuItemCut);
 
         jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.META_MASK));
         jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sm/images/icon_copy.png"))); // NOI18N
         jMenuItemCopy.setText("Copiar");
+        jMenuItemCopy.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItemCopyActionPerformed(evt);
+            }
+        });
         jMenuEdit.add(jMenuItemCopy);
 
         jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.META_MASK));
         jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sm/images/icon_paste.png"))); // NOI18N
         jMenuItemPaste.setText("Pegar");
+        jMenuItemPaste.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItemPasteActionPerformed(evt);
+            }
+        });
         jMenuEdit.add(jMenuItemPaste);
 
         jMenuBar.add(jMenuEdit);
@@ -2221,6 +2342,174 @@ public class MainWindow extends javax.swing.JFrame
         jMenuItemDuplicateImageActionPerformed(evt);
     }//GEN-LAST:event_jButtonDuplicateActionPerformed
 
+    private void jToggleButtonRadialFillActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButtonRadialFillActionPerformed
+    {//GEN-HEADEREND:event_jToggleButtonRadialFillActionPerformed
+        Config.GENERALCONFIG.setFillColor(4);
+        if (getSelectedShape() != null)
+        {
+            getSelectedShape().getConfig().setFillColor((4));
+            repaint();
+        }
+    }//GEN-LAST:event_jToggleButtonRadialFillActionPerformed
+
+    private void jToggleButtonDiagonal1FillActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButtonDiagonal1FillActionPerformed
+    {//GEN-HEADEREND:event_jToggleButtonDiagonal1FillActionPerformed
+        Config.GENERALCONFIG.setFillColor(5);
+        if (getSelectedShape() != null)
+        {
+            getSelectedShape().getConfig().setFillColor((5));
+            repaint();
+        }
+    }//GEN-LAST:event_jToggleButtonDiagonal1FillActionPerformed
+
+    private void jToggleButtonDiagonal2FillActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButtonDiagonal2FillActionPerformed
+    {//GEN-HEADEREND:event_jToggleButtonDiagonal2FillActionPerformed
+        Config.GENERALCONFIG.setFillColor(6);
+        if (getSelectedShape() != null)
+        {
+            getSelectedShape().getConfig().setFillColor((6));
+            repaint();
+        }
+    }//GEN-LAST:event_jToggleButtonDiagonal2FillActionPerformed
+
+    private void jMenuItemCutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItemCutActionPerformed
+    {//GEN-HEADEREND:event_jMenuItemCutActionPerformed
+        if (getSelectedShape() != null)
+        {
+            InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+            if (vi != null)
+            {
+                Canvas canvas = vi.getCanvas();
+                if (canvas != null)
+                {
+                    this.clipBoardShape = canvas.Cut();
+                    repaint();
+                    jMenuItemPaste.setEnabled(true);
+                    this.updateShapesList();
+
+                }
+            }
+
+        }        
+        
+    }//GEN-LAST:event_jMenuItemCutActionPerformed
+
+    private void jMenuItemCopyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItemCopyActionPerformed
+    {//GEN-HEADEREND:event_jMenuItemCopyActionPerformed
+        if (getSelectedShape() != null)
+        {
+            InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+            if (vi != null)
+            {
+                Canvas canvas = vi.getCanvas();
+                if (canvas != null)
+                {
+                    this.clipBoardShape = canvas.Copy();
+                    repaint();
+                    jMenuItemPaste.setEnabled(true);
+
+                }
+            }
+
+        }        
+           
+    }//GEN-LAST:event_jMenuItemCopyActionPerformed
+
+    private void jMenuItemPasteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItemPasteActionPerformed
+    {//GEN-HEADEREND:event_jMenuItemPasteActionPerformed
+
+            InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+            if (vi != null)
+            {
+                Canvas canvas = vi.getCanvas();
+                if (canvas != null)
+                {
+                    canvas.Paste(this.clipBoardShape);
+                    repaint();
+                    this.updateShapesList();
+
+                }
+            }
+
+       
+        
+        
+    }//GEN-LAST:event_jMenuItemPasteActionPerformed
+
+    public void updateShapesList()
+    {
+        InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+        if (vi != null)
+        {
+            Canvas canvas = vi.getCanvas();
+            if (canvas != null)
+                  jListShapes.setListData(canvas.getShapes());
+
+        }
+    }
+    
+    private void jButtonMoveUpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveUpActionPerformed
+    {//GEN-HEADEREND:event_jButtonMoveUpActionPerformed
+
+        InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+        if (vi != null)
+        {
+            Canvas canvas = vi.getCanvas();
+            if (canvas != null)
+            {
+                int tmpindex = this.jListShapes.getSelectedIndex();
+
+                canvas.MoveUp(this.jListShapes.getSelectedIndex());
+                this.updateShapesList();
+                
+                this.jListShapes.setSelectedIndex(tmpindex+1);
+            }
+            
+
+        }
+        
+    }//GEN-LAST:event_jButtonMoveUpActionPerformed
+
+    private void jButtonMoveDownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveDownActionPerformed
+    {//GEN-HEADEREND:event_jButtonMoveDownActionPerformed
+        InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+        if (vi != null)
+        {
+            Canvas canvas = vi.getCanvas();
+            if (canvas != null)
+            {
+                int tmpindex = this.jListShapes.getSelectedIndex();
+                
+                canvas.MoveDown(this.jListShapes.getSelectedIndex());
+                this.updateShapesList();
+                
+                this.jListShapes.setSelectedIndex(tmpindex-1);
+            }
+        }
+    }//GEN-LAST:event_jButtonMoveDownActionPerformed
+
+    private void jListShapesValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_jListShapesValueChanged
+    {//GEN-HEADEREND:event_jListShapesValueChanged
+        InternalWindowImage vi = (InternalWindowImage) this.desktop.getSelectedFrame();
+
+        if (vi != null)
+        {
+            Canvas canvas = vi.getCanvas();
+            if (canvas != null)
+            {
+
+                canvas.setSelectedShape(jListShapes.getSelectedIndex());
+                
+            }
+        }
+        
+    }//GEN-LAST:event_jListShapesValueChanged
+
     public void setImageWindowActivated()
     {
         jPanelImageBinary.setEnabled(true);
@@ -2262,6 +2551,11 @@ public class MainWindow extends javax.swing.JFrame
 
         jMenuSave.setEnabled(true);
 
+        this.jButtonMoveDown.setEnabled(true);
+        this.jButtonMoveUp.setEnabled(true);
+        this.jListShapes.setEnabled(true);
+        this.updateShapesList();
+        
     }
 
     public void setImageWindowDeactivated()
@@ -2306,6 +2600,10 @@ public class MainWindow extends javax.swing.JFrame
         jSliderUmbralization.setEnabled(false);
 
         jMenuSave.setEnabled(false);
+        
+        this.jButtonMoveDown.setEnabled(false);
+        this.jButtonMoveUp.setEnabled(false);
+        this.jListShapes.setEnabled(false);
     }
 
     private void setContrast(int type)
@@ -2511,6 +2809,8 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JButton jButtonGrayScale;
     private javax.swing.ButtonGroup jButtonGroupFill;
     private javax.swing.ButtonGroup jButtonGroupTools;
+    private javax.swing.JButton jButtonMoveDown;
+    private javax.swing.JButton jButtonMoveUp;
     private javax.swing.JButton jButtonNegative;
     private javax.swing.JButton jButtonNew;
     private javax.swing.JButton jButtonOpen;
@@ -2532,6 +2832,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItemToolBarImageRotation;
     private javax.swing.JComboBox<String> jComboBoxFilter;
     private javax.swing.JLabel jLabelRecordTime;
+    private javax.swing.JList<String> jListShapes;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenu jMenuFile;
@@ -2549,6 +2850,8 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuOpen;
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenu jMenuView;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelCenter;
     private javax.swing.JPanel jPanelCursorAndColor;
     private javax.swing.JPanel jPanelImageBinary;
@@ -2561,6 +2864,7 @@ public class MainWindow extends javax.swing.JFrame
     private sm.esc.ui.StrokeChooserComboBox jPanelStroke;
     private javax.swing.JPanel jPanelUmbralization;
     private javax.swing.JPanel jPanelZoom;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -2575,6 +2879,7 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JSlider jSliderRotate;
     private javax.swing.JSlider jSliderUmbralization;
     private javax.swing.JSpinner jSpinnerStroke;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel jStatusBarColor;
     private javax.swing.JLabel jStatusBarCursor;
     private javax.swing.JLabel jStatusBarTool;
@@ -2582,12 +2887,15 @@ public class MainWindow extends javax.swing.JFrame
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButtonAntialiasing;
     private javax.swing.JToggleButton jToggleButtonCurve;
+    private javax.swing.JToggleButton jToggleButtonDiagonal1Fill;
+    private javax.swing.JToggleButton jToggleButtonDiagonal2Fill;
     private javax.swing.JToggleButton jToggleButtonEllipse;
     private javax.swing.JToggleButton jToggleButtonHorizontalFill;
     private javax.swing.JToggleButton jToggleButtonLine;
     private javax.swing.JToggleButton jToggleButtonMove;
     private javax.swing.JToggleButton jToggleButtonNoFill;
     private javax.swing.JToggleButton jToggleButtonPoint;
+    private javax.swing.JToggleButton jToggleButtonRadialFill;
     private javax.swing.JToggleButton jToggleButtonRecord;
     private javax.swing.JToggleButton jToggleButtonRectangle;
     private javax.swing.JToggleButton jToggleButtonRoundRectangle;

@@ -28,6 +28,7 @@ import sm.esc.base.IShape;
  */
 public class Arc extends Shape implements IShape
 {
+    
 
     public Arc(Config config, Point startPoint)
     {

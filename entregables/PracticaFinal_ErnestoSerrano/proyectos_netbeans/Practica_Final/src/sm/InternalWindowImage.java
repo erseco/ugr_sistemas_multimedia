@@ -116,6 +116,10 @@ public class InternalWindowImage extends javax.swing.JInternalFrame
         });
         canvas.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                canvasMouseReleased(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt)
             {
                 canvasMouseExited(evt);
@@ -150,6 +154,9 @@ public class InternalWindowImage extends javax.swing.JInternalFrame
             Robot robot = new Robot();
             Color color = robot.getPixelColor(evt.getXOnScreen(), evt.getYOnScreen());
             this.parent.setCursorPositionColor(color);
+            
+            this.parent.updateShapesList();
+           
         } catch (AWTException ex)
         {
             Logger.getLogger(InternalWindowImage.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,6 +190,11 @@ public class InternalWindowImage extends javax.swing.JInternalFrame
     {//GEN-HEADEREND:event_formInternalFrameDeactivated
         this.parent.setImageWindowDeactivated();
     }//GEN-LAST:event_formInternalFrameDeactivated
+
+    private void canvasMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_canvasMouseReleased
+    {//GEN-HEADEREND:event_canvasMouseReleased
+        this.parent.updateShapesList();
+    }//GEN-LAST:event_canvasMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

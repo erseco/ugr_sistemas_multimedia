@@ -16,10 +16,12 @@
  */
 package sm.esc.graphics;
 
+import java.awt.Color;
 import java.awt.GradientPaint;
 import sm.esc.base.Config;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
@@ -64,19 +66,74 @@ public class Shape implements java.awt.Shape, Cloneable, IShape
     @Override
     public Shape clone() throws CloneNotSupportedException
     {
-        try
+        super.clone();
+        Point startPoint = new Point(this.internalShape.getBounds().x, this.internalShape.getBounds().y);
+        Shape shape = null;
+        switch (this.config.getSelectedTool())
         {
-            super.clone();
-            Point startPoint = new Point(this.internalShape.getBounds().x, this.internalShape.getBounds().y);
+            case POINT:
+                shape = new sm.esc.graphics.Point(this.config.clone(), startPoint);
+                break;
+            case LINE:
+                shape = new sm.esc.graphics.Line(this.config.clone(), startPoint);
+                break;
+            case RECTANGLE:
+                shape= new sm.esc.graphics.Rectangle(this.config.clone(), startPoint);
+                break;
+            case ROUNDRECTANGLE:
+                shape = new sm.esc.graphics.RoundRectangle(this.config.clone(), startPoint);
+                break;
+            case ELLIPSE:
+                shape = new sm.esc.graphics.Ellipse(this.config.clone(), startPoint);
+                break;
+            case ARC:
+                shape = new sm.esc.graphics.Arc(this.config.clone(), startPoint);
+                break;
+                /*                    case POLYLINE:
+                {
+                if (this.selectedShape != null && this.selectedShape instanceof Polyline && ((Polyline) this.selectedShape).creating)
+                if (evt.getClickCount() == 2)
+                ((Polyline) this.selectedShape).onDoubleClick(evt.getPoint());
+                else
+                ((Polyline) this.selectedShape).onClick(evt.getPoint());
+                else
+                this.selectedShape = new sm.esc.graphics.Polyline(Config.GENERALCONFIG.clone(), evt.getPoint());
+                
+                }
+                break;
+                
+                case POLYGON:
+                {
+                if (this.selectedShape != null && this.selectedShape instanceof Polygon && ((Polygon) this.selectedShape).creating)
+                if (evt.getClickCount() == 2)
+                ((Polygon) this.selectedShape).onDoubleClick(evt.getPoint());
+                else
+                ((Polygon) this.selectedShape).onClick(evt.getPoint());
+                else
+                this.selectedShape = new sm.esc.graphics.Polygon(Config.GENERALCONFIG.clone(), evt.getPoint());
+                
+                }
+                break;
+                case CURVE:
+                {
+                if (this.selectedShape != null && this.selectedShape instanceof Curve && ((Curve) this.selectedShape).creating)
+                ((Curve) this.selectedShape).onClick(evt.getPoint());
+                else
+                this.selectedShape = new sm.esc.graphics.Curve(Config.GENERALCONFIG.clone(), evt.getPoint());
+                
+                }
+                break;
+                */
+                
+            }
             
-            Shape shape = new Shape(this.config.clone(), startPoint);
+        Point endPoint = new Point(this.internalShape.getBounds().x + this.internalShape.getBounds().width, this.internalShape.getBounds().y+this.internalShape.getBounds().height);
+
+        shape.resize(endPoint);
+        
+        return shape;
             
-            return shape;
-        } catch (CloneNotSupportedException ex)
-        {
-            Logger.getLogger(Shape.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+ 
     }
 
     /**
@@ -103,14 +160,30 @@ public class Shape implements java.awt.Shape, Cloneable, IShape
             
             switch (this.config.getFillColor())
             {
-                case 1:
+                case 1: // solido
                     g2d.setPaint(this.config.getSelectedBackColor());
                     break;
-                case 2:
-                    g2d.setPaint(new GradientPaint(0, 0, this.config.getSelectedFrontColor(), this.internalShape.getBounds().width, 0, this.config.getSelectedBackColor()));
+                case 2: // derecha
+                    g2d.setPaint(new GradientPaint(this.internalShape.getBounds().x, this.internalShape.getBounds().y, this.config.getSelectedFrontColor(), this.internalShape.getBounds().x + this.internalShape.getBounds().width, this.internalShape.getBounds().y, this.config.getSelectedBackColor()));
                     break;
-                case 3:
-                    g2d.setPaint(new GradientPaint(0, 0, this.config.getSelectedFrontColor(), 0, this.internalShape.getBounds().height, this.config.getSelectedBackColor()));
+                case 3: // abajo
+                    g2d.setPaint(new GradientPaint(this.internalShape.getBounds().x, this.internalShape.getBounds().y, this.config.getSelectedFrontColor(), this.internalShape.getBounds().x, this.internalShape.getBounds().y + this.internalShape.getBounds().height, this.config.getSelectedBackColor()));
+                    break;
+                case 4: // radial
+                    
+                    Point2D center = new Point2D.Float( this.internalShape.getBounds().width, this.internalShape.getBounds().height);
+                    float radius = this.internalShape.getBounds().width/2;
+                    float[] dist = {0.0f, 1.0f};
+                    Color[] colors ={this.config.getSelectedFrontColor(), this.config.getSelectedBackColor()} ;
+                    RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
+
+                    g2d.setPaint(p);
+                    break;
+                case 5: // diagonal 1
+                    g2d.setPaint(new GradientPaint(this.internalShape.getBounds().x, this.internalShape.getBounds().y, this.config.getSelectedFrontColor(), this.internalShape.getBounds().x + this.internalShape.getBounds().width, this.internalShape.getBounds().y + this.internalShape.getBounds().height, this.config.getSelectedBackColor()));
+                    break;
+                case 6: // diagonal 2
+                    g2d.setPaint(new GradientPaint( this.internalShape.getBounds().x + this.internalShape.getBounds().width, this.internalShape.getBounds().y + this.internalShape.getBounds().height, this.config.getSelectedFrontColor(),this.internalShape.getBounds().x, this.internalShape.getBounds().y, this.config.getSelectedBackColor()));
                     break;
                 default:
                     break;

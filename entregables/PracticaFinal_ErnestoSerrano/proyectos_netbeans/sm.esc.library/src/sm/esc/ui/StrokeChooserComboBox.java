@@ -58,6 +58,8 @@ public class StrokeChooserComboBox extends JComboBox
         available[1] = new StrokeSample(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0));   
         available[2] = new StrokeSample(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0));
 
+        
+        
         // we've changed the behaviour here to populate the combo box
         // with Stroke objects directly - ideally we'd change the signature
         // of the constructor too...maybe later.

@@ -26,8 +26,7 @@ import sm.esc.base.IShape;
  * @author Ernesto Serrano
  */
 public class Rectangle extends Shape implements IShape
-{
-
+{    
     public Rectangle(Config config, Point startPoint)
     {
         super(config, startPoint);

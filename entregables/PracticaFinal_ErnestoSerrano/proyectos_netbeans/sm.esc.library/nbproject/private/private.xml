@@ -3,30 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Rectangle.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Curve.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/ProductOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Polyline.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/ui/ColorChooserButton.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/UmbralizacionOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/RoundRectangle.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Point.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/SobelOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/ui/Canvas.java</file>
             <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/ui/StrokeChooserComboBox.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Polygon.java</file>
             <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/base/Config.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Line.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/audio/AudioHandler.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/ui/CanvasImage.java</file>
             <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Shape.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/RandomBlackOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/KernelTypes.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/TintOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Arc.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/graphics/Ellipse.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/image/SepiaOp.java</file>
-            <file>file:/Users/ernesto/Dropbox/Universidad/3er%20Curso/SMM/Prácticas/sm.esc.library/src/sm/esc/base/IShape.java</file>
         </group>
     </open-files>
 </project-private>

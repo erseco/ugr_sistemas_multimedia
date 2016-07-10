@@ -26,6 +26,7 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +65,79 @@ public class Canvas extends javax.swing.JPanel implements Cloneable
     {
         initComponents();
 
+    }
+    
+    public Shape Cut()
+    {
+        if (this.selectedShape != null)
+        {
+            try {
+                Shape tmpShape = this.selectedShape.clone();
+                this.shapes.remove(this.selectedShape);
+                return tmpShape;
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+        
+    }
+    
+    public String[] getShapes()
+    {
+        String[] result = new String[this.shapes.size()];
+        
+        int i = 0;
+        for(Shape shape : this.shapes)
+        {
+            result[i] =  shape.getClass().getName();
+            i++;
+        }
+        
+        return result;
+        
+    }
+    
+    public void MoveUp(int index)
+    {
+        if (index < this.shapes.size()-1)
+            Collections.swap(this.shapes, index, index+1);
+        
+        this.repaint();
+    }
+
+    public void MoveDown(int index)
+    {
+        if (index > 0)
+            Collections.swap(this.shapes, index, index-1);
+     
+        this.repaint();
+    }
+    
+    public Shape Copy()
+    {
+         if (this.selectedShape != null)
+         {
+             try
+             {
+                 return this.selectedShape.clone();
+             } catch (CloneNotSupportedException ex)
+             {
+                 Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+         return null;
+    }
+    
+    public void Paste(Shape shape)
+    {
+        try
+        {
+            this.shapes.add(shape.clone());
+        } catch (CloneNotSupportedException ex)
+        {
+            Logger.getLogger(Canvas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -268,6 +342,24 @@ public class Canvas extends javax.swing.JPanel implements Cloneable
     protected void setClip(java.awt.Shape clip)
     {
         this.clip = clip;
+    }
+    
+    public void setSelectedShape(int index)
+    {
+      
+        if ( this.shapes.size() > 0 && this.shapes.size() > index)
+
+        try
+        {
+            this.selectedShape = this.shapes.get(index);
+
+           
+        } catch (Exception ex)
+        {
+        }
+            
+              
+        this.repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
